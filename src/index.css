@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brand-cream text-brand-espresso font-sans antialiased;
+    /* Prevent layout shift during font swap */
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-brand-espresso;
+  }
+
+  /* Focus states — warm, never clinical blue */
+  *:focus-visible {
+    @apply outline-none ring-[3px] ring-brand-turquoise ring-offset-2 ring-offset-brand-cream;
+  }
+}
+
+@layer utilities {
+  .arch-crop {
+    border-radius: 999px 999px 24px 24px;
+  }
+
+  .arch-crop-reverse {
+    border-radius: 24px 24px 999px 999px;
+  }
+}
+
+/*
+ * FONT LOADING STATES
+ * -------------------
+ * Uses the Font Loading API to control transitions.
+ * Fonts render with system fallbacks first (no FOIT),
+ * then swap in web fonts with a smooth size-adjust.
+ */
+
+/* While fonts are loading: use system fallbacks immediately */
+.fonts-loading .font-serif {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.fonts-loading .font-sans {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.fonts-loading .font-hand {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 1.1em; /* Slightly larger to approximate Caveat */
+}
+
+/* Once fonts are loaded: apply with a subtle transition */
+.fonts-loaded body {
+  transition: font-size 0.1s ease;
+}
+
+/*
+ * FONT METRIC OVERRIDE — reduce CLS
+ * -----------------------------------
+ * Size-adjust values help the fallback fonts closely match
+ * the metrics of the web fonts, minimizing layout shift.
+ */
+@supports (font-size-adjust: from-font) {
+  .font-serif {
+    font-size-adjust: from-font;
+  }
+  .font-sans {
+    font-size-adjust: from-font;
+  }
+}

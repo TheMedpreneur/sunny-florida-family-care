@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀️</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#E07A5F" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Primary Meta Tags -->
+    <title>Sunny Florida Family Care | El Toque Humano — Healthcare That Feels Like Family</title>
+    <meta name="title" content="Sunny Florida Family Care | El Toque Humano — Healthcare That Feels Like Family" />
+    <meta name="description" content="Culturally competent, bilingual healthcare for multi-generational families in Jacksonville, FL. Same-day appointments, transparent pricing, mobile visits & telehealth. We treat people like people, not patients." />
+    <meta name="keywords" content="family care Jacksonville, bilingual doctor, direct primary care, telehealth, mobile house calls, pediatric care, senior health, Spanish-speaking physician, DPC Florida, uninsured healthcare Jacksonville" />
+    <meta name="author" content="Sunny Florida Family Care" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.sunnyfamily.health/" />
+    <meta property="og:title" content="Sunny Florida Family Care | El Toque Humano" />
+    <meta property="og:description" content="Culturally competent, bilingual healthcare for multi-generational families in Jacksonville, FL. Same-day appointments, transparent pricing, and care that feels like family." />
+    <meta property="og:image" content="https://www.sunnyfamily.health/og-image.jpg" />
+    <meta property="og:site_name" content="Sunny Florida Family Care" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.sunnyfamily.health/" />
+    <meta name="twitter:title" content="Sunny Florida Family Care | El Toque Humano" />
+    <meta name="twitter:description" content="Culturally competent, bilingual healthcare for multi-generational families in Jacksonville, FL. Same-day appointments, transparent pricing, and care that feels like family." />
+    <meta name="twitter:image" content="https://www.sunnyfamily.health/og-image.jpg" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.sunnyfamily.health/" />
+
+    <!--
+      FONT LOADING STRATEGY (Non-blocking, optimized):
+      1. Preconnect to font origins early (DNS + TLS handshake)
+      2. Preload the CSS as a high-priority style resource
+      3. Load stylesheet with media="print" so it NEVER blocks render
+      4. On load, swap to media="all" to apply fonts
+      5. <noscript> fallback for no-JS browsers
+      6. Reduced weight ranges to minimize download payload
+    -->
+
+    <!-- Step 1: Preconnect to Google Font servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Step 2: Preload the font stylesheet for early discovery -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap"
+    />
+
+    <!-- Step 3: Non-blocking stylesheet (media="print" prevents render-blocking) -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <!-- Step 4: No-JS fallback -->
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap"
+      />
+    </noscript>
+
+    <!-- Structured Data - Medical Clinic -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalClinic",
+      "name": "Sunny Florida Family Care",
+      "alternateName": "Sunny Family Health",
+      "description": "Culturally competent, bilingual healthcare for multi-generational families in Jacksonville, FL.",
+      "url": "https://www.sunnyfamily.health",
+      "telephone": "+1-904-555-0123",
+      "email": "hola@sunnyfamily.health",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Jacksonville",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        { "@type": "County", "name": "Duval County" },
+        { "@type": "County", "name": "St. Johns County" }
+      ],
+      "availableLanguage": ["English", "Spanish"],
+      "medicalSpecialty": "FamilyPractice",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "09:00",
+          "closes": "14:00"
+        }
+      ],
+      "priceRange": "$$"
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

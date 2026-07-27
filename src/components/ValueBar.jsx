@@ -1,43 +1,43 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import SafeIcon from '../common/SafeIcon';
-import { FiClock, FiShieldOff, FiHeart, FiDollarSign, FiUserCheck, FiMessageCircle } from 'react-icons/fi';
+import Icon from '../common/Icon';
+import Reveal from './Reveal';
 import { useLanguage } from '../context/LanguageContext';
+
+const BENEFITS = [
+  { icon: 'Clock', key: 'values.sameday' },
+  { icon: 'ShieldOff', key: 'values.noInsurance' },
+  { icon: 'Heart', key: 'values.longer' },
+  { icon: 'DollarSign', key: 'values.pricing' },
+  { icon: 'UserCheck', key: 'values.personal' },
+  { icon: 'MessageCircle', key: 'values.spanish' },
+];
 
 export default function ValueBar() {
   const { t } = useLanguage();
 
-  const benefits = [
-    { icon: FiClock, text: t('values.sameday') },
-    { icon: FiShieldOff, text: t('values.noInsurance') },
-    { icon: FiHeart, text: t('values.longer') },
-    { icon: FiDollarSign, text: t('values.pricing') },
-    { icon: FiUserCheck, text: t('values.personal') },
-    { icon: FiMessageCircle, text: t('values.spanish') }
-  ];
-
   return (
-    <div className="relative py-8 bg-brand-cream border-y border-brand-espresso/5">
+    <div className="relative py-8 bg-brand-creamDark border-y border-brand-linen">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="flex flex-wrap justify-center md:justify-between items-center gap-x-8 gap-y-6">
-          {benefits.map((b, i) => (
-            <motion.div 
-              key={i} 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="flex items-center gap-3 text-brand-espresso group"
-            >
-              <div className="text-brand-terracotta group-hover:scale-110 transition-transform">
-                <SafeIcon icon={b.icon} className="w-5 h-5" />
-              </div>
-              <span className="font-sans font-medium text-sm leading-tight max-w-[140px]">
-                {b.text}
+        {/*
+          Two columns on phones rather than a wrapping flex row — the Spanish
+          strings ("Citas el mismo día", "Proveedora que habla español") are
+          much longer than the English and used to collide at 390px.
+        */}
+        <ul
+          className="grid grid-cols-2 md:flex md:flex-wrap md:justify-between items-start gap-x-5 gap-y-5 md:gap-x-8"
+          role="list"
+        >
+          {BENEFITS.map((b, i) => (
+            <Reveal as="li" key={b.key} delay={i * 0.06} className="flex items-start gap-2.5 text-brand-espresso">
+              <span className="text-brand-terracottaInk shrink-0 mt-0.5">
+                <Icon name={b.icon} className="w-5 h-5" />
               </span>
-            </motion.div>
+              <span className="font-sans font-medium text-sm leading-snug md:max-w-[150px]">
+                {t(b.key)}
+              </span>
+            </Reveal>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );

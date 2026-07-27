@@ -1,61 +1,53 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import SEO from '../components/SEO';
+import LegalPage from '../components/LegalPage';
+import practice from '../data/practice';
+
+const SECTIONS = [
+  {
+    heading: 'Your privacy matters here',
+    body: [
+      `${practice.name} takes your privacy as seriously as your health. This notice describes how your health information may be used and disclosed, and how you can access it.`,
+    ],
+  },
+  {
+    heading: 'How your information is protected',
+    body: [
+      'Your health information is kept in an electronic health record with access controls, and telehealth visits run on an encrypted platform. Only your provider and the systems required to deliver and bill for your care can access your chart.',
+      'This practice follows the privacy and security requirements of the Health Insurance Portability and Accountability Act (HIPAA) and maintains business associate agreements with the vendors that handle protected health information on its behalf.',
+    ],
+  },
+  {
+    heading: 'How your information is used',
+    body: [
+      'Your health information is used for treatment, to collect payment for that treatment, and for the ordinary operations of the practice. It is never sold, and it is never shared with third parties for marketing.',
+      'Some disclosures are required by law — for example, reporting certain communicable diseases or responding to a valid court order. Any other disclosure requires your written authorization, which you can revoke at any time.',
+    ],
+  },
+  {
+    heading: 'Your rights',
+    body: [
+      'You have the right to see and get a copy of your record, to ask for a correction, to request a list of certain disclosures, to ask that we communicate with you a particular way, and to request restrictions on how your information is used.',
+      'To exercise any of these rights, or to file a complaint, contact the practice using the details below. You may also file a complaint with the U.S. Department of Health and Human Services Office for Civil Rights. You will never be penalized for filing a complaint.',
+    ],
+  },
+  {
+    heading: 'Payments and this website',
+    body: [
+      'Card payments are processed by Stripe. Full card numbers are never stored by this practice or on this website. Appointment booking is handled through Calendly, and clinical records are kept in the practice electronic health record.',
+      'This website itself does not collect health information. Any details you enter while booking are handled by those scheduling and payment providers under their own privacy terms.',
+    ],
+  },
+];
 
 export default function PrivacyPolicy() {
   return (
-    <div className="bg-brand-cream min-h-screen pt-24 pb-24">
-      <SEO
-        title="Privacy Policy & HIPAA Compliance"
-        description="Learn how Sunny Florida Family Care protects your health information. Fully HIPAA compliant with secure telehealth and encrypted patient records."
-        url="https://www.sunnyfamily.health/#/privacy"
-        keywords="privacy policy, HIPAA compliance, health information, patient privacy, secure telehealth"
-        noindex={true}
-      />
-      <div className="max-w-[800px] mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="prose prose-brand max-w-none"
-        >
-          <h1 className="text-5xl mb-8">Privacy & <span className="italic text-brand-turquoise">HIPAA</span></h1>
-
-          <div className="space-y-8 font-sans text-brand-espresso/80 leading-relaxed">
-            <section>
-              <h2 className="text-2xl font-serif text-brand-espresso mb-4">Your Privacy is Sacred</h2>
-              <p>
-                At Sunny Florida Family Care, we take your privacy as seriously as your health.
-                This notice describes how medical information about you may be used and disclosed
-                and how you can get access to this information.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-brand-espresso mb-4">HIPAA Compliance</h2>
-              <p>
-                We are fully compliant with the Health Insurance Portability and Accountability
-                Act (HIPAA). We use secure, encrypted platforms for all telehealth visits,
-                electronic health records (EHR), and patient communications.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-brand-espresso mb-4">Use of Information</h2>
-              <p>
-                We use your health information for treatment, to obtain payment for treatment
-                (via our membership system), and for healthcare operations. We will not sell or
-                share your information with third parties for marketing purposes.
-              </p>
-            </section>
-
-            <section>
-              <p className="text-sm italic">
-                For questions regarding your privacy, please contact us at hola@sunnyfamily.health
-              </p>
-            </section>
-          </div>
-        </motion.div>
-      </div>
-    </div>
+    <LegalPage
+      title="Privacy &"
+      titleAccent="HIPAA"
+      accentClass="text-brand-tealInk"
+      description={`How ${practice.name} protects and uses your health information.`}
+      lastUpdated="Last reviewed: July 2026"
+      sections={SECTIONS}
+    />
   );
 }

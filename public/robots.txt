@@ -1,13 +1,4 @@
-# Sunny Florida Family Care - Robots.txt
-# https://www.sunnyfamily.health/robots.txt
-
 User-agent: *
 Allow: /
-Disallow: /terms
-Disallow: /privacy
 
-# Sitemaps
 Sitemap: https://www.sunnyfamily.health/sitemap.xml
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1

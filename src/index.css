@@ -3,20 +3,28 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-brand-cream text-brand-espresso font-sans antialiased;
-    /* Prevent layout shift during font swap */
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
+    /* Stop iOS Safari from inflating text in landscape */
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif text-brand-espresso;
+    /* Long Spanish compounds ("responsabilidad", "personalizada") overflow
+       narrow phones otherwise. */
+    overflow-wrap: break-word;
   }
 
-  /* Focus states — warm, never clinical blue */
+  /* Warm focus ring — never clinical blue */
   *:focus-visible {
-    @apply outline-none ring-[3px] ring-brand-turquoise ring-offset-2 ring-offset-brand-cream;
+    @apply outline-none ring-[3px] ring-brand-terracotta ring-offset-2 ring-offset-brand-cream;
   }
 }
 
@@ -28,17 +36,71 @@
   .arch-crop-reverse {
     border-radius: 24px 24px 999px 999px;
   }
+
+  /* Keeps headline line-breaks even instead of leaving one orphan word */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
 }
 
 /*
- * FONT LOADING STATES
- * -------------------
- * Uses the Font Loading API to control transitions.
- * Fonts render with system fallbacks first (no FOIT),
- * then swap in web fonts with a smooth size-adjust.
+ * REVEAL ANIMATIONS
+ * -----------------
+ * Paired with src/components/Reveal.jsx. Replaces framer-motion.
  */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
 
-/* While fonts are loading: use system fallbacks immediately */
+.reveal-up     { transform: translateY(20px); }
+.reveal-left   { transform: translateX(-20px); }
+.reveal-right  { transform: translateX(20px); }
+.reveal-scale  { transform: scale(0.96); }
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/*
+ * ACCESSIBILITY: honour the OS "reduce motion" setting everywhere.
+ * Vestibular disorders are common in the senior patients Ana serves.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * FONT LOADING STATES — paired with src/hooks/useFontLoader.js.
+ * System fallbacks render immediately (no FOIT), then swap.
+ */
 .fonts-loading .font-serif {
   font-family: Georgia, 'Times New Roman', serif;
 }
@@ -49,25 +111,39 @@
 
 .fonts-loading .font-hand {
   font-family: 'Comic Sans MS', cursive;
-  font-size: 1.1em; /* Slightly larger to approximate Caveat */
+  font-size: 1.1em;
 }
 
-/* Once fonts are loaded: apply with a subtle transition */
-.fonts-loaded body {
-  transition: font-size 0.1s ease;
-}
-
-/*
- * FONT METRIC OVERRIDE — reduce CLS
- * -----------------------------------
- * Size-adjust values help the fallback fonts closely match
- * the metrics of the web fonts, minimizing layout shift.
- */
 @supports (font-size-adjust: from-font) {
-  .font-serif {
-    font-size-adjust: from-font;
-  }
+  .font-serif,
   .font-sans {
     font-size-adjust: from-font;
   }
+}
+
+/*
+ * BUTTON SUNBEAM
+ * --------------
+ * Was a framer-motion loop running on the main thread for the life of the
+ * page. Now a compositor-only CSS animation, and prefers-reduced-motion
+ * removes it entirely via the block above.
+ */
+.btn-shimmer {
+  position: absolute;
+  inset-block: 0;
+  width: 6rem;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: translateX(-150%) skewX(-25deg);
+  animation: btn-sunbeam 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes btn-sunbeam {
+  0%   { transform: translateX(-150%) skewX(-25deg); }
+  33%  { transform: translateX(150%) skewX(-25deg); }
+  100% { transform: translateX(150%) skewX(-25deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-shimmer { animation: none; opacity: 0; }
 }

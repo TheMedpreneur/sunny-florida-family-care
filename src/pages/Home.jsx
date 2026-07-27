@@ -7,22 +7,26 @@ import Philosophy from '../components/Philosophy';
 import Services from '../components/Services';
 import Pricing from '../components/Pricing';
 import FinalCta from '../components/FinalCta';
+import { useLanguage } from '../context/LanguageContext';
+import practice from '../data/practice';
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
     <>
       <SEO
-        title="Sunny Florida Family Care | El Toque Humano"
-        description="Culturally competent healthcare for multi-generational families in Jacksonville, FL. Same-day appointments, bilingual providers, and transparent pricing."
-        url="https://www.sunnyfamily.health"
-        keywords="family care, Jacksonville, healthcare, bilingual, Spanish, direct primary care, telehealth, mobile visits, pediatric care"
+        title={`${practice.name} | ${practice.tagline} — Jacksonville, FL`}
+        description={t('footer.desc')}
+        url={practice.siteUrl}
+        keywords="family nurse practitioner Jacksonville, bilingual primary care, Spanish speaking provider Jacksonville, direct primary care Florida, telehealth Jacksonville, mobile visits, atencion primaria en espanol Jacksonville"
       />
       <Hero />
       <ValueBar />
       <WhoWeHelp />
       <Philosophy />
-      <Pricing />
       <Services />
+      <Pricing />
       <FinalCta />
     </>
   );

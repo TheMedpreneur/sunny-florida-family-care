@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Button from './Button';
-import SafeIcon from '../common/SafeIcon';
-import { FiSun, FiGlobe, FiMenu, FiX } from 'react-icons/fi';
+import LanguageToggle from './LanguageToggle';
+import Icon from '../common/Icon';
 import { useLanguage } from '../context/LanguageContext';
+import practice from '../data/practice';
 
 export default function Navbar() {
   const location = useLocation();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const navLinks = [
@@ -16,85 +17,119 @@ export default function Navbar() {
     { to: '/services', label: t('nav.services') },
   ];
 
+  // Close the mobile sheet on route change so a tap never leaves it hanging open.
+  React.useEffect(() => { setMobileOpen(false); }, [location.pathname]);
+
   return (
-    <nav className="sticky top-0 z-50 bg-brand-cream/90 backdrop-blur-md border-b border-brand-espresso/5" role="navigation" aria-label="Main navigation">
-      <div className="max-w-[1200px] mx-auto px-6 h-24 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 text-brand-terracotta cursor-pointer group shrink-0" aria-label="Sunny Florida Family Care - Home">
-          <SafeIcon icon={FiSun} className="w-10 h-10 transition-transform group-hover:rotate-45" aria-hidden="true" />
-          <div className="flex flex-col">
-            <span className="font-serif text-3xl font-medium tracking-tight text-brand-espresso leading-none">
-              Sunny Florida
-            </span>
-            <span className="font-serif italic text-brand-espresso/80 text-lg leading-tight">
-              Family Care
-            </span>
-          </div>
+    <nav
+      className="sticky top-0 z-50 bg-brand-cream/95 backdrop-blur-md border-b border-brand-linen"
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-20 md:h-28 flex items-center justify-between gap-3">
+        {/* Logo — enlarged per Ana's request (7/16, item 4) */}
+        <Link
+          to="/"
+          className="flex items-center shrink-0 group"
+          aria-label={`${practice.name} — home`}
+        >
+          <img
+            src={practice.images.logo}
+            alt={`${practice.name} logo`}
+            className="h-14 sm:h-16 md:h-24 w-auto transition-transform duration-400 ease-soft-ease group-hover:scale-[1.03]"
+            width="1155"
+            height="1164"
+            fetchPriority="high"
+          />
+          <span className="sr-only">{practice.name} — {practice.tagline}</span>
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8 font-sans text-brand-espresso/80">
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-7 font-sans text-brand-muted">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className={`hover:text-brand-terracotta transition-colors ${
-                location.pathname === link.to ? 'text-brand-terracotta font-semibold' : ''
+              aria-current={location.pathname === link.to ? 'page' : undefined}
+              className={`inline-flex items-center min-h-tap px-1 hover:text-brand-terracottaInk transition-colors ${
+                location.pathname === link.to
+                  ? 'text-brand-terracottaInk font-semibold'
+                  : ''
               }`}
             >
               {link.label}
             </Link>
           ))}
-
-          {/* Translation Toggle */}
-          <button
-            onClick={toggleLanguage}
-            className="flex items-center gap-2 text-sm font-semibold hover:text-brand-terracotta transition-colors bg-brand-espresso/5 px-4 py-2 rounded-full border border-brand-espresso/10"
-            aria-label={language === 'en' ? 'Switch to Spanish' : 'Switch to English'}
-          >
-            <SafeIcon icon={FiGlobe} className="w-4 h-4" aria-hidden="true" />
-            {language === 'en' ? 'ESPAÑOL' : 'ENGLISH'}
-          </button>
+          <LanguageToggle />
         </div>
 
         {/* Desktop CTA */}
-        <Button variant="primary" className="hidden sm:flex">
+        <Button
+          variant="primary"
+          href={practice.calendly}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-flex shrink-0"
+        >
           {t('nav.book')}
         </Button>
 
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-brand-espresso"
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={mobileOpen}
-        >
-          <SafeIcon icon={mobileOpen ? FiX : FiMenu} className="w-6 h-6" />
-        </button>
+        {/*
+          MOBILE CONTROLS
+          Ana reported (7/18) that the Spanish toggle was missing on her phone —
+          it only existed inside the collapsed hamburger menu. It now sits in
+          the header bar itself, visible without opening anything.
+        */}
+        <div className="flex md:hidden items-center gap-1.5 shrink-0">
+          <LanguageToggle compact />
+          <button
+            type="button"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="min-h-tap min-w-tap flex items-center justify-center rounded-full text-brand-espresso hover:bg-brand-creamDark transition-colors"
+            aria-label={mobileOpen ? t('nav.closeMenu') : t('nav.openMenu')}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+          >
+            <Icon name={mobileOpen ? "X" : "Menu"} className="w-6 h-6" />
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-brand-cream border-t border-brand-espresso/5 px-6 py-6 space-y-4 font-sans">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setMobileOpen(false)}
-              className={`block text-lg hover:text-brand-terracotta transition-colors ${
-                location.pathname === link.to ? 'text-brand-terracotta font-semibold' : 'text-brand-espresso/80'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <button
-            onClick={() => { toggleLanguage(); setMobileOpen(false); }}
-            className="flex items-center gap-2 text-sm font-semibold text-brand-espresso/80 hover:text-brand-terracotta transition-colors"
+        <div
+          id="mobile-menu"
+          className="md:hidden bg-brand-cream border-t border-brand-linen px-4 sm:px-6 py-4 font-sans shadow-soft"
+        >
+          <ul className="divide-y divide-brand-linen/70" role="list">
+            {navLinks.map((link) => (
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  onClick={() => setMobileOpen(false)}
+                  aria-current={location.pathname === link.to ? 'page' : undefined}
+                  className={`flex items-center min-h-tap text-lg transition-colors ${
+                    location.pathname === link.to
+                      ? 'text-brand-terracottaInk font-semibold'
+                      : 'text-brand-espresso hover:text-brand-terracottaInk'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <Button
+            variant="primary"
+            href={practice.calendly}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileOpen(false)}
+            className="w-full mt-5"
           >
-            <SafeIcon icon={FiGlobe} className="w-4 h-4" aria-hidden="true" />
-            {language === 'en' ? 'ESPAÑOL' : 'ENGLISH'}
-          </button>
+            {t('nav.book')}
+          </Button>
         </div>
       )}
     </nav>

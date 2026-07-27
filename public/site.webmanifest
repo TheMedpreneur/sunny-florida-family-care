@@ -1,0 +1,14 @@
+{
+  "name": "Sunny Florida Family Care",
+  "short_name": "Sunny Florida",
+  "description": "Bilingual private-pay primary care for families in Jacksonville, FL.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F2E8DA",
+  "theme_color": "#B84A2E",
+  "icons": [
+    { "src": "/images/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/images/icon-512.png", "type": "image/png", "sizes": "512x512" },
+    { "src": "/images/icon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
+  ]
+}

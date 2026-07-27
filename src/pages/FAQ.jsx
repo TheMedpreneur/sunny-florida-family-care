@@ -1,63 +1,82 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
+import Reveal from '../components/Reveal';
+import Icon from '../common/Icon';
+import Button from '../components/Button';
 import { useLanguage } from '../context/LanguageContext';
-
-const AccordionItem = ({ question, answer, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: index * 0.1 }}
-    className="border-b border-brand-espresso/10 py-6"
-  >
-    <h3 className="text-xl md:text-2xl mb-3 text-brand-espresso font-serif">{question}</h3>
-    <p className="font-sans text-brand-espresso/70 leading-relaxed">{answer}</p>
-  </motion.div>
-);
+import practice from '../data/practice';
 
 export default function FAQ() {
   const { t } = useLanguage();
-
-  const questions = [
-    { q: t('faq.q1'), a: t('faq.a1') },
-    { q: t('faq.q2'), a: t('faq.a2') },
-    { q: t('faq.q3'), a: t('faq.a3') },
-    { q: t('faq.q4'), a: t('faq.a4') }
-  ];
+  const items = t('faq.items');
+  const list = Array.isArray(items) ? items : [];
 
   return (
-    <div className="bg-brand-cream min-h-screen pt-24 pb-24">
+    <div className="bg-brand-cream">
       <SEO
-        title="Frequently Asked Questions"
-        description="Find answers about our direct primary care model, mobile visits, same-day appointments, membership pricing, and bilingual services in Jacksonville, FL."
-        url="https://www.sunnyfamily.health/#/faq"
-        keywords="FAQ, direct primary care, membership, mobile visits, telehealth, Jacksonville healthcare questions"
+        title={`${t('faq.title')} ${t('faq.titleItalic')} | ${practice.name}`}
+        description={list[0]?.a || t('footer.desc')}
+        url={`${practice.siteUrl}/#/faq`}
+        keywords="direct primary care FAQ, no insurance doctor Jacksonville, telemedicine questions, preguntas frecuentes atencion medica"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: list.map((item) => ({
+            '@type': 'Question',
+            name: item.q,
+            acceptedAnswer: { '@type': 'Answer', text: item.a },
+          })),
+        }}
       />
-      <div className="max-w-[800px] mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl md:text-6xl mb-6">
-            {t('faq.title')} <span className="italic text-brand-terracotta">{t('faq.titleItalic')}</span>
-          </h1>
-          <p className="font-sans text-lg text-brand-espresso/60">
-            Everything you need to know about our personal approach to healthcare.
-          </p>
-        </motion.div>
 
-        <div
-          className="bg-white/50 backdrop-blur-sm rounded-[32px] p-8 md:p-12 shadow-soft border border-brand-espresso/5"
-          role="region"
-          aria-label="Frequently asked questions"
-        >
-          {questions.map((item, i) => (
-            <AccordionItem key={i} question={item.q} answer={item.a} index={i} />
-          ))}
+      <section className="pt-14 pb-10 md:pt-20 md:pb-14">
+        <div className="max-w-[760px] mx-auto px-6 text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl text-balance">
+            {t('faq.title')}{' '}
+            <span className="italic text-brand-terracottaInk">{t('faq.titleItalic')}</span>
+          </h1>
         </div>
-      </div>
+      </section>
+
+      <section className="pb-16 md:pb-24">
+        <div className="max-w-[760px] mx-auto px-6">
+          <div className="space-y-3">
+            {list.map((item, i) => (
+              <Reveal key={i} delay={i * 0.05}>
+                {/*
+                  Native <details> rather than JS state: it is keyboard and
+                  screen-reader accessible for free, and the answer text is in
+                  the DOM for search engines even while collapsed.
+                */}
+                <details className="group bg-brand-shell border border-brand-linen rounded-2xl shadow-soft overflow-hidden">
+                  <summary className="flex items-start justify-between gap-4 cursor-pointer list-none p-5 sm:p-6 min-h-tap font-sans font-semibold text-brand-espresso hover:bg-brand-creamDark/50 transition-colors">
+                    <span className="text-lg leading-snug">{item.q}</span>
+                    <span className="text-brand-terracottaInk shrink-0 mt-1 transition-transform duration-400 group-open:rotate-180">
+                      <Icon name="ChevronDown" className="w-5 h-5" />
+                    </span>
+                  </summary>
+                  <div className="px-5 sm:px-6 pb-6 -mt-1">
+                    <p className="font-sans text-brand-muted leading-relaxed text-pretty">{item.a}</p>
+                  </div>
+                </details>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-12 text-center">
+            <p className="font-sans text-brand-muted mb-5">{t('hero.questions')}</p>
+            <Button
+              variant="primary"
+              href={practice.calendly}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-10"
+            >
+              {t('nav.book')}
+            </Button>
+          </Reveal>
+        </div>
+      </section>
     </div>
   );
 }

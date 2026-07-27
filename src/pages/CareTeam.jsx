@@ -1,76 +1,122 @@
 import React from 'react';
 import SEO from '../components/SEO';
-import TeamHero from '../components/TeamHero';
-import TeamMember from '../components/TeamMember';
 import Button from '../components/Button';
+import Reveal from '../components/Reveal';
+import Icon from '../common/Icon';
+import { useLanguage } from '../context/LanguageContext';
+import practice from '../data/practice';
+
+const VALUE_ICONS = ['Clock', 'UserCheck', 'Globe', 'MessageCircle'];
 
 export default function CareTeam() {
-  const team = [
-    {
-      name: "Dr. Elena Santiago",
-      role: "Lead Physician & Founder",
-      bio: "Dr. Santiago founded Sunny Family Health to return the 'Human Touch' to medicine. With 15 years in family practice, she treats every patient as if they were her own family, from newborns to abuelitos.",
-      image: "https://images.unsplash.com/photo-1559839734-2v71f153678f?q=75&w=600&auto=format&fit=crop&fm=webp",
-      note: "Expert in Pediatrics",
-      delay: 0.1
-    },
-    {
-      name: "Mateo Rivera, NP",
-      role: "Family Nurse Practitioner",
-      bio: "Mateo specializes in chronic wellness and preventative care. He's known for taking the time to explain the 'why' behind every treatment, making complex medicine feel simple and manageable.",
-      image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=75&w=600&auto=format&fit=crop&fm=webp",
-      note: "Wellness Advocate",
-      delay: 0.2
-    },
-    {
-      name: "Sofia Mendez",
-      role: "Patient Care Coordinator",
-      bio: "The first warm face you see. Sofia ensures our clinic feels like a neighborhood café. She'll help you navigate insurance or just offer a warm cup of coffee while you wait.",
-      image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=75&w=600&auto=format&fit=crop&fm=webp",
-      note: "Se habla español",
-      delay: 0.3
-    }
-  ];
+  const { t } = useLanguage();
+  const bio = t('team.bio');
+  const values = t('team.values');
 
   return (
     <div className="bg-brand-cream">
       <SEO
-        title="Our Care Team"
-        description="Meet Dr. Elena Santiago and our compassionate, bilingual care team in Jacksonville, FL. Clinically sharp and deeply empathetic providers who treat you like family."
-        url="https://www.sunnyfamily.health/#/team"
-        keywords="Dr. Elena Santiago, family doctor, Jacksonville, bilingual doctor, nurse practitioner, care team"
+        title={`${practice.provider.fullTitle} | ${practice.name}`}
+        description={t('team.intro')}
+        url={`${practice.siteUrl}/#/team`}
+        keywords="Ana Adamski FNP-C, nurse practitioner Jacksonville, bilingual nurse practitioner, Spanish speaking provider Jacksonville, enfermera practicante Jacksonville"
       />
-      <TeamHero />
-      <section className="py-24 max-w-[1200px] mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-16" role="list" aria-label="Care team members">
-          {team.map((member, index) => (
-            <div key={index} role="listitem">
-              <TeamMember {...member} />
-            </div>
-          ))}
+
+      {/* Intro */}
+      <section className="pt-14 pb-16 md:pt-20 md:pb-20">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+            <Reveal from="left">
+              <span className="font-sans text-xs tracking-widest uppercase text-brand-sageInk font-bold mb-4 block">
+                {t('team.badge')}
+              </span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl mb-3 text-balance">
+                {t('team.title')}{' '}
+                <span className="italic text-brand-terracottaInk">{t('team.titleItalic')}</span>
+              </h1>
+              <p className="font-serif text-xl md:text-2xl text-brand-sageInk mb-6">
+                {practice.provider.fullTitle} — {t('team.role')}
+              </p>
+              <p className="font-sans text-lg text-brand-muted leading-relaxed">
+                {t('team.intro')}
+              </p>
+            </Reveal>
+
+            <Reveal from="right" delay={0.1} className="relative max-w-md mx-auto md:max-w-none w-full">
+              <div className="absolute -inset-3 bg-brand-sage/20 arch-crop -rotate-2 -z-10" aria-hidden="true" />
+              <div className="aspect-[4/5] arch-crop overflow-hidden shadow-lift border-8 border-brand-shell">
+                <picture>
+                  <source srcSet={practice.images.anaHeroWebp} type="image/webp" />
+                  <img
+                    src={practice.images.anaHero}
+                    alt={`${practice.provider.fullTitle}, Family Nurse Practitioner, with a patient`}
+                    className="w-full h-full object-cover object-top"
+                    width="1000"
+                    height="1250"
+                    fetchPriority="high"
+                  />
+                </picture>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      <section className="py-24 bg-brand-creamDark">
-        <div className="max-w-[760px] mx-auto px-6 text-center">
-          <h2 className="text-4xl mb-8">
-            Our <span className="italic text-brand-terracotta">Promise</span> to You
-          </h2>
-          <div className="space-y-8 text-lg font-sans text-brand-espresso/80 leading-relaxed">
-            <p>
-              We don't just see patients; we see stories. We see the grandmother who wants
-              to stay active for her grandkids, and the new parents who need a reassuring
-              voice at 4 PM on a Friday.
-            </p>
-            <p>
-              Our team is trained in cultural competency because we know that language and
-              values are just as important as vital signs. When you're here, you're not a
-              number. <strong className="text-brand-espresso">You're home.</strong>
-            </p>
-            <div className="pt-8">
-              <Button variant="primary">Join Our Family</Button>
+      {/* Bio */}
+      <section className="py-16 md:py-20 bg-brand-creamDark border-y border-brand-linen">
+        <div className="max-w-[760px] mx-auto px-6">
+          <Reveal>
+            <div className="space-y-6 font-sans text-lg text-brand-espresso leading-relaxed text-pretty">
+              {Array.isArray(bio) && bio.map((para, i) => <p key={i}>{para}</p>)}
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* What to expect */}
+      <section className="py-16 md:py-24" aria-labelledby="expect-heading">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <h2 id="expect-heading" className="text-3xl sm:text-4xl md:text-5xl mb-12 text-center text-balance">
+            {t('team.valuesTitle')}
+          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {Array.isArray(values) && values.map((v, i) => (
+              <Reveal
+                key={i}
+                delay={i * 0.08}
+                className="bg-brand-shell border border-brand-linen rounded-3xl p-6 shadow-soft h-full"
+              >
+                <span className="w-11 h-11 rounded-full bg-brand-marigold/25 flex items-center justify-center text-brand-terracottaInk mb-4">
+                  <Icon name={VALUE_ICONS[i] || 'Heart'} className="w-5 h-5" />
+                </span>
+                <h3 className="font-serif text-xl mb-2 text-brand-espresso">{v.title}</h3>
+                <p className="font-sans text-brand-muted leading-relaxed">{v.desc}</p>
+              </Reveal>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Promise */}
+      <section className="py-16 md:py-20 bg-brand-espresso text-brand-cream">
+        <div className="max-w-[760px] mx-auto px-6 text-center">
+          <Reveal>
+            <h2 className="font-serif text-3xl md:text-4xl mb-6 text-brand-marigoldLight">
+              {t('team.promiseTitle')}
+            </h2>
+            <p className="font-sans text-lg md:text-xl leading-relaxed text-brand-cream mb-10 text-pretty">
+              {t('team.promise')}
+            </p>
+            <Button
+              variant="sun"
+              href={practice.calendly}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-10 py-4 text-lg"
+            >
+              {t('team.cta')}
+            </Button>
+          </Reveal>
         </div>
       </section>
     </div>

@@ -2,121 +2,75 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀️</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#E07A5F" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#B84A2E" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Sunny Florida" />
 
-    <!-- Primary Meta Tags -->
-    <title>Sunny Florida Family Care | El Toque Humano — Healthcare That Feels Like Family</title>
-    <meta name="title" content="Sunny Florida Family Care | El Toque Humano — Healthcare That Feels Like Family" />
-    <meta name="description" content="Culturally competent, bilingual healthcare for multi-generational families in Jacksonville, FL. Same-day appointments, transparent pricing, mobile visits & telehealth. We treat people like people, not patients." />
-    <meta name="keywords" content="family care Jacksonville, bilingual doctor, direct primary care, telehealth, mobile house calls, pediatric care, senior health, Spanish-speaking physician, DPC Florida, uninsured healthcare Jacksonville" />
-    <meta name="author" content="Sunny Florida Family Care" />
-    <meta name="robots" content="index, follow" />
-    <meta name="language" content="English" />
-    <meta name="revisit-after" content="7 days" />
+    <title>Sunny Florida Family Care | Bilingual Primary Care in Jacksonville, FL</title>
+    <meta
+      name="description"
+      content="Private-pay primary care for families across Jacksonville. Unhurried visits with Ana Adamski, FNP-C — bilingual in English and Spanish. Telehealth, mobile visits, and transparent pricing."
+    />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.sunnyfamily.health/" />
-    <meta property="og:title" content="Sunny Florida Family Care | El Toque Humano" />
-    <meta property="og:description" content="Culturally competent, bilingual healthcare for multi-generational families in Jacksonville, FL. Same-day appointments, transparent pricing, and care that feels like family." />
-    <meta property="og:image" content="https://www.sunnyfamily.health/og-image.jpg" />
-    <meta property="og:site_name" content="Sunny Florida Family Care" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:locale:alternate" content="es_ES" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://www.sunnyfamily.health/" />
-    <meta name="twitter:title" content="Sunny Florida Family Care | El Toque Humano" />
-    <meta name="twitter:description" content="Culturally competent, bilingual healthcare for multi-generational families in Jacksonville, FL. Same-day appointments, transparent pricing, and care that feels like family." />
-    <meta name="twitter:image" content="https://www.sunnyfamily.health/og-image.jpg" />
-
-    <!-- Canonical -->
-    <link rel="canonical" href="https://www.sunnyfamily.health/" />
+    <!-- Ana's logo as the icon, replacing the placeholder emoji favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
+    <link rel="apple-touch-icon" href="/images/icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!--
-      FONT LOADING STRATEGY (Non-blocking, optimized):
-      1. Preconnect to font origins early (DNS + TLS handshake)
-      2. Preload the CSS as a high-priority style resource
-      3. Load stylesheet with media="print" so it NEVER blocks render
-      4. On load, swap to media="all" to apply fonts
-      5. <noscript> fallback for no-JS browsers
-      6. Reduced weight ranges to minimize download payload
-    -->
+      FONT LOADING
+      1. preconnect so DNS + TLS are done before the CSS is requested
+      2. preload the stylesheet for early discovery
+      3. load it with media="print" so it never blocks first paint, then swap
+      4. <noscript> fallback
 
-    <!-- Step 1: Preconnect to Google Font servers -->
+      Weights are trimmed to what the design actually uses: Newsreader roman +
+      italic for headings, Hanken Grotesk roman for body, Caveat 400 for the two
+      handwritten quotes. Sans italic is synthesized rather than downloaded.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Step 2: Preload the font stylesheet for early discovery -->
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
     />
-
-    <!-- Step 3: Non-blocking stylesheet (media="print" prevents render-blocking) -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
       media="print"
       onload="this.media='all'"
     />
-
-    <!-- Step 4: No-JS fallback -->
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
       />
     </noscript>
 
-    <!-- Structured Data - Medical Clinic -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "MedicalClinic",
-      "name": "Sunny Florida Family Care",
-      "alternateName": "Sunny Family Health",
-      "description": "Culturally competent, bilingual healthcare for multi-generational families in Jacksonville, FL.",
-      "url": "https://www.sunnyfamily.health",
-      "telephone": "+1-904-555-0123",
-      "email": "hola@sunnyfamily.health",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Jacksonville",
-        "addressRegion": "FL",
-        "addressCountry": "US"
-      },
-      "areaServed": [
-        { "@type": "County", "name": "Duval County" },
-        { "@type": "County", "name": "St. Johns County" }
-      ],
-      "availableLanguage": ["English", "Spanish"],
-      "medicalSpecialty": "FamilyPractice",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-          "opens": "08:00",
-          "closes": "18:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": "Saturday",
-          "opens": "09:00",
-          "closes": "14:00"
-        }
-      ],
-      "priceRange": "$$"
-    }
-    </script>
+    <!-- Largest Contentful Paint is the hero portrait — fetch it with the HTML -->
+    <link rel="preload" as="image" href="/images/ana-hero.webp" type="image/webp" fetchpriority="high" />
+
+    <!--
+      Structured data lives in src/components/SEO.jsx so it is generated from
+      src/data/practice.js and can never disagree with the phone number and
+      hours rendered on the page.
+    -->
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="max-width:40rem;margin:4rem auto;padding:0 1.5rem;font-family:system-ui,sans-serif;color:#2B1F18">
+        <h1>Sunny Florida Family Care</h1>
+        <p>
+          This site needs JavaScript to run. To book an appointment right now, visit
+          <a href="https://calendly.com/ana-sunnyfloridafamilycare/30min">our booking page</a>
+          or call the practice.
+        </p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -1,0 +1,38 @@
+# Cloudflare Pages headers
+# ------------------------
+# Applied at the edge. Cloudflare reads this file from the build output root.
+
+/*
+  # Stop the browser guessing content types (defends against MIME-confusion attacks)
+  X-Content-Type-Options: nosniff
+  # This site should never be framed — clickjacking a "Book Online" button is a real risk
+  X-Frame-Options: DENY
+  # Send the origin but not the full path to third parties
+  Referrer-Policy: strict-origin-when-cross-origin
+  # The site needs none of these; deny them rather than leave them available
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  X-DNS-Prefetch-Control: on
+
+# NOTE ON CSP
+# A Content-Security-Policy is deliberately NOT set here yet. index.html uses an
+# inline `onload` attribute for the non-blocking font swap, so any policy without
+# 'unsafe-inline' in script-src silently breaks font loading — worse than no CSP.
+# To add one properly: move that swap into a small external script, then set
+#   Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+# Vite fingerprints these filenames, so they can be cached forever.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Ana's photos and logo change rarely, but the names are not fingerprinted —
+# a day of caching with revalidation keeps swaps quick.
+/images/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# Never cache the entry point, or a deploy will not go live for returning visitors.
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate

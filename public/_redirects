@@ -1,0 +1,9 @@
+# Cloudflare Pages redirects
+# --------------------------
+# The app currently uses hash routing (/#/services), so every route is already
+# served by index.html and this rule is a no-op today.
+#
+# It is here so that switching to clean URLs (BrowserRouter) is a one-line change
+# in App.jsx rather than a broken deploy: without this, a hard refresh on
+# /services would 404 at the edge.
+/*  /index.html  200

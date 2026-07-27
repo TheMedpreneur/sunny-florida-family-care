@@ -11,6 +11,12 @@ dist
 dist-ssr
 *.local
 
+# Never commit real secrets — .env is tracked only because it holds a
+# warning comment. Anything with actual values stays out.
+.env.local
+.env.*.local
+.env.production
+
 # QA artifacts
 qa-screens
 

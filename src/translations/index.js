@@ -14,6 +14,15 @@
  * single.visits, single.conditions, single.included) is ours and should be
  * confirmed with Ana before launch.
  *
+ * So is the Spanish for `team.intro` and `team.bio`. Ana supplied that
+ * introduction in English on 8/2 and it is used word for word, her em-dashes
+ * included — but the Spanish rendering of it is ours, and it is the page a
+ * Spanish-speaking patient reads to decide whether to trust her. It should
+ * get her eyes before launch, same as the menu above.
+ *
+ * Ditto `pricing.includes`, `pricing.afterHours` and the `footer.flexible*`
+ * lines added 8/2 — English is Ana's wording, the Spanish is ours.
+ *
  * Prices never appear in this file. They live in src/data/ so the English
  * and Spanish copy can never disagree about a dollar figure.
  *
@@ -106,6 +115,25 @@ export const translations = {
         "seniors": "Senior",
         "enroll": "Enroll Now"
       },
+      "includes": {
+        "title": "Every membership includes",
+        "visitsBefore": "Up to",
+        "visitsAfter": "provider visits each month",
+        "messaging": "Unlimited calls and secure messages with Ana",
+        "followUps": "Follow-up visits included",
+        "refills": "Medication refills included (non-controlled)",
+        "sameDay": "Member rates on same-day sick visits",
+        "afterHoursBefore": "Same-day after-hours telehealth available —",
+        "afterHoursAfter": "add-on",
+        "sameProvider": "The same provider every time — always Ana"
+      },
+      "afterHours": {
+        "title": "Same-day after-hours telehealth",
+        "window": "Once the day closes at",
+        "addOn": "Add on",
+        "notice": "After-hours appointments are offered based on provider availability and are intended for urgent, non-emergency medical concerns. An after-hours convenience fee applies and is due at the time of service.",
+        "emergency": "Life-threatening emergencies should always be directed to 911 or the nearest emergency department."
+      },
       "aLaCarte": {
         "title": "Not ready for a membership?",
         "desc": "Every service is available as a one-time visit, with the price shown before you book. Rapid tests start at $25 and telemedicine visits at $55.",
@@ -182,8 +210,9 @@ export const translations = {
         "sameDaySick": "Same-Day Sick Visit",
         "followUp": "Follow-Up Visit",
         "refill": "Medication Refill Visit (non-controlled)",
-        "afterHours": "After-Hours Visit"
+        "afterHours": "After-Hours Visit (non-members)"
       },
+      "payNow": "Pay now",
       "conditionsTitle": "Conditions We Commonly Treat",
       "conditions": {
         "cold": "Cold, cough, and congestion",
@@ -514,11 +543,16 @@ export const translations = {
       "title": "Meet",
       "titleItalic": "Ana",
       "role": "Family Nurse Practitioner & Founder",
-      "intro": "Sunny Florida Family Care is a solo practice, and that is the point. You will not be handed between providers or asked to explain your history again to someone new.",
+      "intro": "Ana Adamski, MSN, APRN, FNP-C is a board-certified Family Nurse Practitioner dedicated to providing thoughtful, personalized care to individuals and families throughout Jacksonville.",
       "bio": [
-        "Ana Adamski is a board-certified Family Nurse Practitioner serving families across Jacksonville. She started this practice after years of watching good visits get cut short — twenty patients on the schedule, and a person in front of her who had waited weeks to be heard.",
-        "She sees whole families: children from age 3 by video, adults managing chronic conditions, and the abuelitos who deserve to be spoken to directly rather than through a relative. Every visit happens in Spanish or English, whichever you think in.",
-        "She is also the provider who calls on a random weekend to check whether you or your child is doing better. Sometimes what a patient needs is not another appointment — it is reassurance, in their own language, from someone who already knows the story."
+        "She created Sunny Florida Family Care with a simple belief: you should never feel rushed, overlooked, or like just another name on a schedule.",
+        "After years in healthcare, Ana saw too many patients leave appointments feeling unheard—waiting weeks for care, spending only a few hurried minutes with their provider, or struggling to communicate what they needed. She knew there had to be a better way.",
+        "Today, Ana takes a different approach.",
+        "She takes the time to listen. To understand your concerns. To look at the whole picture—not just a single symptom or diagnosis. Whether she is caring for a child, helping an adult manage a chronic condition, or supporting an older loved one, her goal is the same: to make every patient feel seen, respected, and genuinely cared for.",
+        "As a bilingual provider, Ana offers care in both English and Spanish, allowing you to communicate in the language that feels most comfortable to you. Because when it comes to your health, you deserve to fully understand your care—and feel confident in the decisions you make.",
+        "At Sunny Florida Family Care, Ana believes healthcare is more than an appointment. It is a relationship built on trust, communication, and continuity. It is having a provider who remembers your story, listens without rushing, and truly cares about what happens next.",
+        "Because you deserve a provider who knows you—not just your chart.",
+        "Welcome to healthcare with more time, more compassion, and a more personal approach."
       ],
       "valuesTitle": "What you can expect",
       "values": [
@@ -585,10 +619,13 @@ export const translations = {
     "footer": {
       "desc": "Convenient, compassionate private-pay care for families across Jacksonville — focused on prevention, wellness, and your individual health goals.",
       "visit": "Get in touch",
-      "hours": "Hours",
-      "monFri": "Mon – Fri",
-      "sat": "Saturday",
-      "walkins": "Same-day appointments available",
+      "appointments": "Appointments",
+      "sameDay": "Same-day appointments available",
+      "flexibleLead": "Can't find an appointment that fits your schedule?",
+      "flexibleCall": "Give us a call",
+      "flexibleOr": "or",
+      "flexibleText": "send us a text",
+      "flexibleTail": ", and we'll see what we can do!",
       "legal": "Information",
       "designed": "Care by Nurse Practitioners",
       "rights": "All rights reserved.",
@@ -685,6 +722,25 @@ export const translations = {
         "seniors": "Adultos Mayores",
         "enroll": "Inscribirse"
       },
+      "includes": {
+        "title": "Toda membresía incluye",
+        "visitsBefore": "Hasta",
+        "visitsAfter": "consultas con su proveedora al mes",
+        "messaging": "Llamadas y mensajes seguros ilimitados con Ana",
+        "followUps": "Consultas de seguimiento incluidas",
+        "refills": "Resurtido de medicamentos incluido (no controlados)",
+        "sameDay": "Tarifas de miembro en consultas por enfermedad el mismo día",
+        "afterHoursBefore": "Telemedicina el mismo día fuera de horario —",
+        "afterHoursAfter": "adicional",
+        "sameProvider": "La misma proveedora siempre — Ana"
+      },
+      "afterHours": {
+        "title": "Telemedicina el mismo día fuera de horario",
+        "window": "Una vez cerrado el día a las",
+        "addOn": "Adicional de",
+        "notice": "Las citas fuera de horario se ofrecen según la disponibilidad de la proveedora y son para asuntos médicos urgentes que no sean emergencias. Se aplica un cargo por conveniencia fuera de horario, pagadero al momento de la consulta.",
+        "emergency": "Las emergencias que ponen la vida en riesgo siempre deben dirigirse al 911 o a la sala de emergencias más cercana."
+      },
       "aLaCarte": {
         "title": "¿Aún no quiere una membresía?",
         "desc": "Todos los servicios están disponibles como consulta única, con el precio visible antes de reservar. Las pruebas rápidas comienzan en $25 y las consultas de telemedicina en $55.",
@@ -761,8 +817,9 @@ export const translations = {
         "sameDaySick": "Consulta por Enfermedad el Mismo Día",
         "followUp": "Consulta de Seguimiento",
         "refill": "Consulta para Resurtir Medicamentos (no controlados)",
-        "afterHours": "Consulta Fuera de Horario"
+        "afterHours": "Consulta Fuera de Horario (sin membresía)"
       },
+      "payNow": "Pagar ahora",
       "conditionsTitle": "Condiciones que Tratamos Comúnmente",
       "conditions": {
         "cold": "Resfriado, tos y congestión",
@@ -1093,11 +1150,16 @@ export const translations = {
       "title": "Conozca a",
       "titleItalic": "Ana",
       "role": "Enfermera Practicante Familiar y Fundadora",
-      "intro": "Sunny Florida Family Care es una práctica de una sola proveedora, y esa es la idea. No lo pasarán de un proveedor a otro ni le pedirán que explique su historial otra vez a alguien nuevo.",
+      "intro": "Ana Adamski, MSN, APRN, FNP-C es Enfermera Practicante Familiar certificada, dedicada a brindar una atención cuidadosa y personalizada a personas y familias en todo Jacksonville.",
       "bio": [
-        "Ana Adamski es Enfermera Practicante Familiar certificada y atiende a familias en todo Jacksonville. Comenzó esta práctica después de años de ver buenas consultas cortadas a la mitad — veinte pacientes en la agenda, y frente a ella una persona que había esperado semanas para ser escuchada.",
-        "Atiende a familias completas: niños desde los 3 años por video, adultos manejando condiciones crónicas, y los abuelitos que merecen que se les hable directamente y no a través de un familiar. Cada consulta ocurre en español o inglés, el idioma en el que usted piensa.",
-        "También es la proveedora que llama un fin de semana cualquiera para ver si usted o su hijo están mejor. A veces lo que un paciente necesita no es otra cita — es tranquilidad, en su propio idioma, de alguien que ya conoce la historia."
+        "Creó Sunny Florida Family Care con una convicción sencilla: usted nunca debería sentirse apurado, pasado por alto, ni como un nombre más en la agenda.",
+        "Después de años en el sistema de salud, Ana vio a demasiados pacientes salir de sus consultas sintiéndose no escuchados—esperando semanas por atención, pasando apenas unos minutos apresurados con su proveedor, o batallando para comunicar lo que necesitaban. Sabía que tenía que haber una mejor manera.",
+        "Hoy, Ana hace las cosas de otra forma.",
+        "Se toma el tiempo de escuchar. De entender sus preocupaciones. De ver el panorama completo—no solo un síntoma o un diagnóstico aislado. Ya sea que atienda a un niño, ayude a un adulto a manejar una condición crónica, o acompañe a un ser querido mayor, su meta es la misma: que cada paciente se sienta visto, respetado y genuinamente cuidado.",
+        "Como proveedora bilingüe, Ana atiende tanto en inglés como en español, para que usted pueda comunicarse en el idioma en el que se sienta más cómodo. Porque cuando se trata de su salud, usted merece entender su atención por completo—y sentirse seguro de las decisiones que toma.",
+        "En Sunny Florida Family Care, Ana cree que la atención médica es más que una cita. Es una relación construida sobre la confianza, la comunicación y la continuidad. Es tener una proveedora que recuerda su historia, que escucha sin prisa, y a quien de verdad le importa lo que pasa después.",
+        "Porque usted merece una proveedora que lo conozca a usted—no solo su expediente.",
+        "Bienvenido a una atención médica con más tiempo, más compasión y un trato más personal."
       ],
       "valuesTitle": "Lo que puede esperar",
       "values": [
@@ -1164,10 +1226,13 @@ export const translations = {
     "footer": {
       "desc": "Atención privada conveniente y compasiva para familias en todo Jacksonville — enfocada en la prevención, el bienestar y sus metas individuales de salud.",
       "visit": "Contáctenos",
-      "hours": "Horario",
-      "monFri": "Lun – Vie",
-      "sat": "Sábado",
-      "walkins": "Citas disponibles el mismo día",
+      "appointments": "Citas",
+      "sameDay": "Citas disponibles el mismo día",
+      "flexibleLead": "¿No encuentra una cita que se ajuste a su horario?",
+      "flexibleCall": "Llámenos",
+      "flexibleOr": "o",
+      "flexibleText": "envíenos un mensaje de texto",
+      "flexibleTail": ". ¡Veremos qué podemos hacer!",
       "legal": "Información",
       "designed": "Care by Nurse Practitioners",
       "rights": "Todos los derechos reservados.",

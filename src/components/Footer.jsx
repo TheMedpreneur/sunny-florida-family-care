@@ -17,14 +17,17 @@ export default function Footer() {
               band, so it sits on a light chip here rather than being recolored.
             */}
             <Link to="/" className="inline-block bg-brand-shell rounded-2xl p-3 mb-5 shadow-soft">
-              <img
-                src={practice.images.logo}
-                alt={`${practice.name} logo`}
-                className="h-20 w-auto"
-                width="1155"
-                height="1164"
-                loading="lazy"
-              />
+              <picture>
+                <source srcSet={practice.images.logoSm} type="image/webp" />
+                <img
+                  src={practice.images.logo}
+                  alt={`${practice.name} logo`}
+                  className="h-20 w-auto"
+                  width="640"
+                  height="644"
+                  loading="lazy"
+                />
+              </picture>
             </Link>
             <p className="font-sans text-brand-cream/75 max-w-xs">
               {t('footer.desc')}
@@ -64,21 +67,39 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/*
+            Posted clock hours came out 8/2 — Ana still holds another job, so a
+            fixed schedule would be wrong more often than right, and a patient
+            turned away by stale hours is worse than no hours at all. What
+            replaces them is the thing she can actually promise: same-day
+            availability, and an invitation to ask. openingHoursSpecification
+            was dropped from the structured data in SEO.jsx at the same time,
+            so Google cannot keep showing hours the site no longer claims.
+          */}
           <div>
-            <h2 className="font-serif text-xl mb-5 text-brand-marigoldLight">{t('footer.hours')}</h2>
-            <ul className="space-y-2 font-sans text-brand-cream/85" role="list">
-              <li className="flex justify-between gap-4">
-                <span>{t('footer.monFri')}</span>
-                <span className="text-right whitespace-nowrap">{practice.hours.monFri}</span>
-              </li>
-              <li className="flex justify-between gap-4">
-                <span>{t('footer.sat')}</span>
-                <span className="text-right whitespace-nowrap">{practice.hours.sat}</span>
-              </li>
-              <li className="text-brand-marigoldLight mt-3 italic">
-                {t('footer.walkins')}
-              </li>
-            </ul>
+            <h2 className="font-serif text-xl mb-5 text-brand-marigoldLight">
+              {t('footer.appointments')}
+            </h2>
+            <p className="font-sans text-brand-marigoldLight italic mb-4">
+              {t('footer.sameDay')}
+            </p>
+            <p className="font-sans text-brand-cream/85 leading-relaxed">
+              {t('footer.flexibleLead')}{' '}
+              <a
+                href={practice.phoneHref}
+                className="font-semibold underline decoration-brand-marigoldLight/60 underline-offset-4 hover:text-brand-marigoldLight transition-colors"
+              >
+                {t('footer.flexibleCall')}
+              </a>{' '}
+              {t('footer.flexibleOr')}{' '}
+              <a
+                href={practice.smsHref}
+                className="font-semibold underline decoration-brand-marigoldLight/60 underline-offset-4 hover:text-brand-marigoldLight transition-colors"
+              >
+                {t('footer.flexibleText')}
+              </a>
+              {t('footer.flexibleTail')}
+            </p>
           </div>
 
           <div>

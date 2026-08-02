@@ -13,6 +13,19 @@ export default function CareTeam() {
   const bio = t('team.bio');
   const values = t('team.values');
 
+  /*
+   * Ana's solo portrait downtown, supplied 8/2 to replace the with-a-patient
+   * shot that was doing double duty here and on the homepage hero.
+   *
+   * The fallback is deliberate: practice.images.anaAbout stays undefined until
+   * public/images/ana-about.jpg is actually in the repo, so this page renders
+   * the old photo rather than a broken image if the two land out of order.
+   * Delete the fallback once the file ships.
+   */
+  const aboutImg = practice.images.anaAbout ?? practice.images.anaHero;
+  const aboutImgWebp = practice.images.anaAboutWebp ?? practice.images.anaHeroWebp;
+  const hasOwnPortrait = Boolean(practice.images.anaAbout);
+
   return (
     <div className="bg-brand-cream">
       <SEO
@@ -34,8 +47,13 @@ export default function CareTeam() {
                 {t('team.title')}{' '}
                 <span className="italic text-brand-terracottaInk">{t('team.titleItalic')}</span>
               </h1>
+              {/*
+                Her own signature block. Everywhere else on the site stays with
+                the short "Ana Adamski, FNP-C" so pull-quote attributions do not
+                run long — this is the one place the full credential belongs.
+              */}
               <p className="font-serif text-xl md:text-2xl text-brand-sageInk mb-6">
-                {practice.provider.fullTitle} — {t('team.role')}
+                {practice.provider.fullTitleLong} — {t('team.role')}
               </p>
               <p className="font-sans text-lg text-brand-muted leading-relaxed">
                 {t('team.intro')}
@@ -44,15 +62,25 @@ export default function CareTeam() {
 
             <Reveal from="right" delay={0.1} className="relative max-w-md mx-auto md:max-w-none w-full">
               <div className="absolute -inset-3 bg-brand-sage/20 arch-crop -rotate-2 -z-10" aria-hidden="true" />
-              <div className="aspect-[4/5] arch-crop overflow-hidden shadow-lift border-8 border-brand-shell">
+              {/*
+                The new photo is landscape, so the tall 4:5 arch this page used
+                would have cropped the skyline straight out of it. 4:3 keeps the
+                river and the bridge; the object-position bias keeps Ana off
+                dead-centre without pushing her out of frame.
+              */}
+              <div
+                className={`${hasOwnPortrait ? 'aspect-[4/3]' : 'aspect-[4/5]'} arch-crop overflow-hidden shadow-lift border-8 border-brand-shell`}
+              >
                 <picture>
-                  <source srcSet={practice.images.anaHeroWebp} type="image/webp" />
+                  <source srcSet={aboutImgWebp} type="image/webp" />
                   <img
-                    src={practice.images.anaHero}
-                    alt={`${practice.provider.fullTitle}, Family Nurse Practitioner, with a patient`}
-                    className="w-full h-full object-cover object-top"
-                    width="1000"
-                    height="1250"
+                    src={aboutImg}
+                    alt={
+                      hasOwnPortrait
+                        ? `${practice.provider.fullTitleLong}, Family Nurse Practitioner, on the St. Johns River waterfront in downtown Jacksonville`
+                        : `${practice.provider.fullTitle}, Family Nurse Practitioner, with a patient`
+                    }
+                    className={`w-full h-full object-cover ${hasOwnPortrait ? 'object-[62%_45%]' : 'object-top'}`}
                     fetchPriority="high"
                   />
                 </picture>

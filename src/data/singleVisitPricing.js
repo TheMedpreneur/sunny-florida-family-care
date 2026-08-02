@@ -11,6 +11,33 @@
  *
  * Prices live here as numbers, never inside the copy, so the English and
  * Spanish versions can never drift apart on a dollar figure.
+ *
+ *
+ * PAYING ONLINE FOR A SINGLE SERVICE
+ * ==================================
+ * Every row below accepts an optional `paymentLink`. When one is present AND
+ * it is a real customer-facing checkout URL, that row renders a "Pay" button
+ * next to the price. When it is absent — which is the case for every row
+ * today — the row renders exactly as it always has, price only.
+ *
+ * That means this file is the whole job: paste a URL, that service becomes
+ * payable. Nothing else in the codebase changes.
+ *
+ * ⚠️ A link must start with https://buy.stripe.com. A dashboard.stripe.com
+ * URL is an admin page no patient can pay on — that exact mistake shipped
+ * once on the Senior membership tier. isBadStripeLink() in data/practice.js
+ * rejects anything else, and the button simply does not render.
+ *
+ * TO TURN THESE ON, for each service Ana wants payable:
+ *   1. Stripe Dashboard → Product catalogue → add a product with the price
+ *      shown here (the two must match exactly — advertising one figure and
+ *      charging another is a consumer-protection problem, not a typo).
+ *   2. Create a Payment Link for it, copy the buy.stripe.com URL.
+ *   3. Paste it as `paymentLink: '...'` on the matching row.
+ *
+ * If OptiMantra requires a brand-new Stripe account, these links have to be
+ * rebuilt in that account — same as the three membership links in
+ * data/practice.js. See AUDIT.md §1.
  */
 
 /** Menu 1 — private services, grouped exactly as Ana grouped them. */
@@ -56,7 +83,13 @@ export const rapidTests = [
   { id: 'combo',    price: 60 },
 ];
 
-/** Menu 2b — telemedicine visit pricing, adults & children. */
+/**
+ * Menu 2b — telemedicine visit pricing, adults & children.
+ *
+ * `afterHours` here is the NON-MEMBER price. Members pay the smaller add-on
+ * in practice.afterHours.memberAddOn instead, shown on the membership block.
+ * Both are labelled in the copy so the two figures cannot be confused.
+ */
 export const telemedicineVisits = [
   { id: 'newPatient',  price: 99 },
   { id: 'established', price: 75 },

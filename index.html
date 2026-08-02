@@ -27,31 +27,52 @@
       4. <noscript> fallback
 
       Weights are trimmed to what the design actually uses: Newsreader roman +
-      italic for headings, Hanken Grotesk roman for body, Caveat 400 for the two
-      handwritten quotes. Sans italic is synthesized rather than downloaded.
+      italic for headings, Hanken Grotesk roman for body, Caveat 400..600 for
+      the two handwritten quotes. Sans italic is synthesized rather than
+      downloaded.
+
+      Caveat is a variable font, so widening 400 to 400..600 is the same single
+      file — no extra request, no extra bytes of consequence. It buys the hero
+      quote real weight instead of a synthesised fake bold, which is half of
+      why "I'm here for you" was hard to read against the photo.
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..600&family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..600&family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..600&family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
       />
     </noscript>
 
-    <!-- Largest Contentful Paint is the hero portrait — fetch it with the HTML -->
-    <link rel="preload" as="image" href="/images/ana-hero.webp" type="image/webp" fetchpriority="high" />
+    <!--
+      Largest Contentful Paint is the hero portrait — fetch it with the HTML.
+
+      imagesrcset/imagesizes must mirror the <picture> in Hero.jsx exactly. A
+      plain href preload here would tell the browser to fetch the 1000px file
+      while the markup then picked the 600px one, and phones would download
+      both — a "performance" tag costing 53KB on the critical path.
+    -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/images/ana-hero.webp"
+      imagesrcset="/images/ana-hero-sm.webp 600w, /images/ana-hero.webp 1000w"
+      imagesizes="(min-width: 1024px) 560px, (min-width: 640px) 448px, 100vw"
+      fetchpriority="high"
+    />
 
     <!--
       Structured data lives in src/components/SEO.jsx so it is generated from

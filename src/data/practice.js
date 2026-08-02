@@ -19,6 +19,11 @@ export const practice = {
     // materials unless holding a doctorate AND clearly disclosing the license
     // type. Ana is board-certified FNP — always "Ana Adamski, FNP-C".
     fullTitle: 'Ana Adamski, FNP-C',
+    // Her own signature block, supplied 8/2. Used where the credential is the
+    // point — the Meet Ana headline and the structured data — while the short
+    // form above stays on pull-quote attributions so they do not run long.
+    credentialsFull: 'MSN, APRN, FNP-C',
+    fullTitleLong: 'Ana Adamski, MSN, APRN, FNP-C',
     role: 'Family Nurse Practitioner & Founder',
   },
 
@@ -27,21 +32,27 @@ export const practice = {
   calendly: 'https://calendly.com/ana-sunnyfloridafamilycare/30min',
 
   // ---- Contact -------------------------------------------------------
-  // TODO(Shane): replace with Ana's real practice line + inbox before launch.
-  // These are still the demo placeholders from the original build.
-  phone: '(904) 555-0123',
-  phoneHref: 'tel:9045550123',
-  email: 'hola@sunnyfamily.health',
-  phoneIsPlaceholder: true,
-  emailIsPlaceholder: true,
+  // Ana's real practice line and inbox (supplied 8/2), replacing the demo
+  // placeholders. smsHref backs the "give us a call or send us a text" line
+  // in the footer — on a phone it opens the messaging app directly.
+  phone: '(904) 752-2809',
+  phoneHref: 'tel:+19047522809',
+  smsHref: 'sms:+19047522809',
+  email: 'ana@sunnyfloridafamilycare.com',
 
   serviceArea: 'Jacksonville, FL — serving Duval & St. Johns',
+
+  // ⚠️ CONFIRM BEFORE LAUNCH: this domain drives every canonical URL, the
+  // sitemap and robots.txt, but Ana's email is @sunnyfloridafamilycare.com.
+  // If the site lives at that domain instead, change it here and in
+  // public/sitemap.xml + public/robots.txt.
   siteUrl: 'https://www.sunnyfamily.health',
 
-  hours: {
-    monFri: '8:00 AM – 6:00 PM',
-    sat: '9:00 AM – 2:00 PM',
-  },
+  // NOTE: fixed clinic hours were removed 8/2 at Ana's request — she is still
+  // working another job, so posted hours would be wrong more often than right.
+  // The footer now advertises same-day availability and invites a call or text
+  // instead. openingHoursSpecification was removed from the structured data in
+  // SEO.jsx at the same time, so Google cannot keep showing stale hours.
 
   // ---- Memberships + Stripe payment links -----------------------------
   // VERIFIED AGAINST LIVE STRIPE CHECKOUT 7/27/26. A customer-usable link
@@ -85,9 +96,44 @@ export const practice = {
 
   enrollmentFee: 99, // one-time, charged with the first month on all plans
 
+  // ---- What a membership actually buys --------------------------------
+  // Ana, 8/2: "I didn't see where patients are able to see what's included
+  // with their membership briefly prior to enrolling." Every tier includes
+  // the same thing, so this is one shared list rendered above the tiers, plus
+  // the visit count repeated inside each card where the Enroll button is.
+  //
+  // Numbers live here, never inside the translated copy, so the English and
+  // Spanish can never disagree about a figure.
+  visitsPerMonth: 3,
+
+  // Order is the display order. Copy lives under `pricing.includes.*`.
+  membershipIncludes: [
+    'visits',
+    'messaging',
+    'followUps',
+    'refills',
+    'sameDay',
+    'afterHours',
+    'sameProvider',
+  ],
+
+  // ---- After-hours ----------------------------------------------------
+  // Member add-on for same-day telehealth once the day closes. Non-members
+  // pay the standalone after-hours price in data/singleVisitPricing.js
+  // (telemedicineVisits → afterHours, $99); the two are labelled so they can
+  // never be mistaken for each other.
+  afterHours: {
+    memberAddOn: 50,
+    cutoff: '5:00 PM',
+  },
+
   // ---- Images ---------------------------------------------------------
   images: {
     logo: '/images/logo.png',
+    // 408 KB at 640×644 for something rendered at 56–96px. The small WebP is
+    // what Navbar and Footer actually load; the full PNG stays for the
+    // structured data and social cards, which want the large square.
+    logoSm: '/images/logo-sm.webp',
     mark: '/images/logo-mark.png',
     anaHero: '/images/ana-hero.jpg',
     anaHeroWebp: '/images/ana-hero.webp',
@@ -95,6 +141,15 @@ export const practice = {
     anaPortrait: '/images/ana-portrait.jpg',
     anaCare: '/images/ana-care.jpg',
     anaCareWebp: '/images/ana-care.webp',
+
+    // Meet Ana — her solo portrait downtown, supplied 8/2 to replace the
+    // with-a-patient shot that was doing double duty on the homepage.
+    //
+    // ⚠️ Both keys stay undefined until public/images/ana-about.jpg lands in
+    // the repo. CareTeam.jsx falls back to the hero photo while they are
+    // missing, so the site is never broken mid-swap. Uncomment to enable.
+    // anaAbout: '/images/ana-about.jpg',
+    // anaAboutWebp: '/images/ana-about.webp',
   },
 };
 

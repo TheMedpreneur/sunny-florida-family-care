@@ -18,12 +18,64 @@ const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const ServiceDetail = lazy(() => import('./pages/ServiceDetail'));
 const NotFound = lazy(() => import('./components/NotFound'));
 
-/** Jump to the top on navigation — otherwise a deep page opens mid-scroll. */
-function ScrollToTop() {
-  const { pathname } = useLocation();
+/**
+ * Scroll behaviour on navigation: jump to the top, unless the link carried a
+ * hash, in which case scroll to that section instead.
+ *
+ * Three things this has to get right, all of which the previous
+ * top-only version got wrong:
+ *
+ *  1. `key` is in the dependency list, not just `pathname`. React Router mints
+ *     a new key on every navigation *including one to the URL you are already
+ *     on*. "See single-visit pricing" is rendered on /services as well as the
+ *     homepage, so without `key` that button was inert on the page it is most
+ *     visible on — the effect simply never re-ran.
+ *
+ *  2. Routes are lazy-loaded, so on a first visit the target element does not
+ *     exist yet when this effect fires. Retry across a few frames rather than
+ *     giving up on the first miss.
+ *
+ *  3. Give up eventually. A hash pointing at something that never mounts must
+ *     fall back to the top of the page, not leave the reader stranded
+ *     mid-document.
+ */
+const MAX_ANCHOR_FRAMES = 40; // ~650ms at 60fps — long enough for a lazy chunk
+
+function ScrollManager() {
+  const { pathname, hash, key } = useLocation();
+
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [pathname]);
+    const toTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+    if (!hash) {
+      toTop();
+      return undefined;
+    }
+
+    let frame;
+    let attempts = 0;
+
+    const findTarget = () => {
+      const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+
+      if (el) {
+        // scroll-mt-* on the target keeps it clear of the sticky navbar.
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      if (attempts++ < MAX_ANCHOR_FRAMES) {
+        frame = requestAnimationFrame(findTarget);
+        return;
+      }
+
+      toTop();
+    };
+
+    findTarget();
+    return () => cancelAnimationFrame(frame);
+  }, [pathname, hash, key]);
+
   return null;
 }
 
@@ -39,7 +91,7 @@ function AppContent() {
       >
         {t('nav.home')}
       </a>
-      <ScrollToTop />
+      <ScrollManager />
       <Navbar />
       <main id="main-content">
         <Suspense fallback={<Loading />}>

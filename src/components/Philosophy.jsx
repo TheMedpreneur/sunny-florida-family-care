@@ -38,8 +38,27 @@ export default function Philosophy() {
             </div>
           </Reveal>
 
-          <Reveal from="scale" delay={0.12} className="relative mb-16 md:mb-0">
-            <div className="aspect-square arch-crop-reverse overflow-hidden shadow-lift border-4 border-brand-marigold/40">
+          <Reveal from="scale" delay={0.12} className="relative mb-24 md:mb-0">
+            {/*
+              Ana, 8/2: "seems to be really up close on the website and even
+              closer on my phone."
+
+              The file is 1200×800, a 3:2 landscape, and it was being forced
+              into aspect-square with object-cover and no object-position. That
+              threw away a third of the width and scaled what was left up by
+              about 1.5×; on a phone the square went full-bleed, which is why it
+              read closest there.
+
+              The frame now matches the file exactly, so nothing is cropped and
+              nothing is enlarged — this is the photograph at the size it was
+              actually taken. That is as far back as this asset goes.
+
+              ⚠️ It only goes so far, because ana-care.jpg is itself a tight
+              crop of the same photograph as the hero. Every image on this site
+              is a crop of one frame. If Ana has a second shot from that shoot,
+              dropping it in here is the rest of the fix — AUDIT.md §10.
+            */}
+            <div className="aspect-[3/2] arch-crop-reverse overflow-hidden shadow-lift border-4 border-brand-marigold/40">
               <picture>
                 <source srcSet={practice.images.anaCareWebp} type="image/webp" />
                 <img
@@ -53,7 +72,15 @@ export default function Philosophy() {
               </picture>
             </div>
 
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 md:-bottom-8 md:-left-10 bg-brand-terracottaDeep text-brand-cream p-5 sm:p-6 rounded-2xl shadow-lift w-[88%] sm:max-w-[300px] rotate-[-2deg]">
+            {/*
+              The card now hangs mostly below the photo instead of sitting on
+              it. At the old offset it covered the bottom-left corner — which is
+              exactly where the patient is — so the picture read as nothing but
+              a close-up of Ana's face, feeding the very complaint above. The
+              frame is also shorter than the square it replaced, so the same
+              offset would have buried proportionally more of it.
+            */}
+            <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 md:-bottom-16 md:-left-10 bg-brand-terracottaDeep text-brand-cream p-5 sm:p-6 rounded-2xl shadow-lift w-[88%] sm:max-w-[300px] rotate-[-2deg]">
               <p className="font-hand text-xl sm:text-2xl leading-tight mb-2">
                 &ldquo;{t('philosophy.quote')}&rdquo;
               </p>

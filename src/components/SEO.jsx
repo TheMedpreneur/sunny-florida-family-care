@@ -45,23 +45,17 @@ export default function SEO({
     employee: {
       '@type': 'Person',
       name: practice.provider.name,
-      honorificSuffix: practice.provider.credentials,
+      honorificSuffix: practice.provider.credentialsFull,
       jobTitle: practice.provider.role,
     },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '08:00',
-        closes: '18:00',
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: 'Saturday',
-        opens: '09:00',
-        closes: '14:00',
-      },
-    ],
+    /*
+     * openingHoursSpecification was removed 8/2 along with the footer hours.
+     * Leaving it here would have been the worse half of the bug: the site
+     * would stop claiming fixed hours while Google carried on showing
+     * "Mon–Fri 8AM–6PM" in search results and Maps, sending patients to a
+     * practice that is not open. No hours in the markup means no hours
+     * asserted anywhere. Restore this block only when the schedule is real.
+     */
   };
 
   return (

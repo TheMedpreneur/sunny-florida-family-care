@@ -3,7 +3,7 @@ import Icon from '../common/Icon';
 import Reveal from './Reveal';
 import Button from './Button';
 import { useLanguage } from '../context/LanguageContext';
-import practice from '../data/practice';
+import practice, { isBadStripeLink } from '../data/practice';
 import {
   serviceGroups,
   rapidTests,
@@ -11,6 +11,30 @@ import {
   conditionIds,
   includedIds,
 } from '../data/singleVisitPricing';
+
+/**
+ * Pay-now link for a single service, rendered only when that row has a real
+ * customer-facing Stripe checkout URL. Today no row has one, so this renders
+ * nowhere and the menu looks exactly as it always has — it switches on row by
+ * row as Ana creates Payment Links. See the header of data/singleVisitPricing.js.
+ */
+function PayLink({ link, label }) {
+  const { t } = useLanguage();
+  if (isBadStripeLink(link)) return null;
+
+  return (
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-2 inline-flex items-center gap-1.5 min-h-tap px-4 rounded-full bg-brand-terracotta text-brand-shell font-sans text-sm font-semibold hover:bg-brand-terracottaDeep transition-colors duration-400 ease-soft-ease"
+      aria-label={`${t('single.payNow')} — ${label}`}
+    >
+      {t('single.payNow')}
+      <Icon name="ArrowRight" className="w-3.5 h-3.5" aria-hidden="true" />
+    </a>
+  );
+}
 
 /** Menu 1 — private services with a description under each name. */
 function ServiceGroup({ group }) {
@@ -48,6 +72,7 @@ function ServiceGroup({ group }) {
             <p className="font-sans text-sm text-brand-muted leading-relaxed">
               {t(`single.items.${item.id}.desc`)}
             </p>
+            <PayLink link={item.paymentLink} label={t(`single.items.${item.id}.name`)} />
           </div>
         ))}
       </dl>
@@ -64,13 +89,16 @@ function PriceTable({ titleKey, rows, prefix }) {
       <h3 className="font-serif text-2xl mb-6 text-brand-espresso">{t(titleKey)}</h3>
       <dl className="divide-y divide-brand-linen">
         {rows.map((row) => (
-          <div key={row.id} className="flex items-baseline justify-between gap-4 py-3">
-            <dt className="font-sans text-brand-espresso leading-snug">
-              {t(`${prefix}.${row.id}`)}
-            </dt>
-            <dd className="font-sans font-bold text-brand-terracottaInk whitespace-nowrap tabular-nums shrink-0">
-              ${row.price}
-            </dd>
+          <div key={row.id} className="py-3">
+            <div className="flex items-baseline justify-between gap-4">
+              <dt className="font-sans text-brand-espresso leading-snug">
+                {t(`${prefix}.${row.id}`)}
+              </dt>
+              <dd className="font-sans font-bold text-brand-terracottaInk whitespace-nowrap tabular-nums shrink-0">
+                ${row.price}
+              </dd>
+            </div>
+            <PayLink link={row.paymentLink} label={t(`${prefix}.${row.id}`)} />
           </div>
         ))}
       </dl>
@@ -84,7 +112,12 @@ export default function SingleVisitPricing() {
   return (
     <section
       id="single-visit"
-      className="py-20 md:py-24 bg-brand-creamDark border-y border-brand-linen"
+      /*
+       * scroll-mt keeps the heading clear of the sticky Navbar when the
+       * "See single-visit pricing" button jumps here — without it the
+       * eyebrow and title land underneath the header.
+       */
+      className="py-20 md:py-24 bg-brand-creamDark border-y border-brand-linen scroll-mt-28 md:scroll-mt-32"
       aria-labelledby="single-visit-heading"
     >
       <div className="max-w-[1200px] mx-auto px-6">

@@ -33,14 +33,26 @@ export default function Navbar() {
           className="flex items-center shrink-0 group"
           aria-label={`${practice.name} — home`}
         >
-          <img
-            src={practice.images.logo}
-            alt={`${practice.name} logo`}
-            className="h-14 sm:h-16 md:h-24 w-auto transition-transform duration-400 ease-soft-ease group-hover:scale-[1.03]"
-            width="1155"
-            height="1164"
-            fetchPriority="high"
-          />
+          {/*
+            The full logo is a 399KB PNG at 640×644, rendered here at 56–96px
+            and again in the footer — on every page, before anything else can
+            paint. The 256px WebP is 42KB and indistinguishable at this size.
+            The PNG stays as the fallback and for social cards, which want it.
+
+            (width/height also said 1155×1164, which the file has never been.
+            The ratio was close enough to hide the mistake.)
+          */}
+          <picture>
+            <source srcSet={practice.images.logoSm} type="image/webp" />
+            <img
+              src={practice.images.logo}
+              alt={`${practice.name} logo`}
+              className="h-14 sm:h-16 md:h-24 w-auto transition-transform duration-400 ease-soft-ease group-hover:scale-[1.03]"
+              width="640"
+              height="644"
+              fetchPriority="high"
+            />
+          </picture>
           <span className="sr-only">{practice.name} — {practice.tagline}</span>
         </Link>
 

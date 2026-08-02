@@ -81,6 +81,11 @@ export default {
           tintPink:   '#EBD9CC',
           tintBlue:   '#D8E5E1',
           tintYellow: '#F2E2C0',
+          // serviceDetails.js has always asked for tintGreen on the chronic-care
+          // service, but the token was never defined — Tailwind emitted nothing
+          // and /services/chronic rendered with no tint at all. Same sage family
+          // as the other tints, at card weight.
+          tintGreen:  '#DCE3D4',
         },
       },
       fontFamily: {

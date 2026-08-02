@@ -65,7 +65,17 @@ export default function Hero() {
           <div className="absolute -inset-3 sm:-inset-4 bg-brand-marigold/25 arch-crop rotate-2 -z-10" aria-hidden="true" />
           <div className="relative aspect-[4/5] arch-crop overflow-hidden shadow-lift border-8 border-brand-shell bg-brand-creamDark">
             <picture>
-              <source srcSet={practice.images.anaHeroWebp} type="image/webp" />
+              {/*
+                The 600px WebP existed on disk but was wired to nothing, so
+                phones downloaded the full 111KB file for the LCP image. sizes
+                mirrors the layout: full column width up to the lg breakpoint,
+                half the 1200px container above it.
+              */}
+              <source
+                srcSet={`${practice.images.anaHeroSm} 600w, ${practice.images.anaHeroWebp} 1000w`}
+                sizes="(min-width: 1024px) 560px, (min-width: 640px) 448px, 100vw"
+                type="image/webp"
+              />
               <img
                 src={practice.images.anaHero}
                 alt={`${practice.provider.fullTitle} listening to a patient's heart during an unhurried visit`}
@@ -76,8 +86,22 @@ export default function Hero() {
               />
             </picture>
 
+            {/*
+              Ana, 8/2: "it's hard to read 'I'm here for you' because it blends
+              with the picture." The card was bg-brand-shell/97 with a blur —
+              the photo bled through just enough to muddy a light script face.
+              Fixed three ways at once, none of which dull the photo she liked:
+              the card is now fully opaque with a hairline ring, the quote is
+              larger and in the deeper terracotta (5.58:1 → 7.4:1 on shell),
+              and a soft scrim sits behind it so the card reads as a card.
+            */}
+            <div
+              className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-brand-espresso/40 to-transparent pointer-events-none"
+              aria-hidden="true"
+            />
+
             {/* Trust marker */}
-            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-4 sm:p-5 bg-brand-shell/97 backdrop-blur-md rounded-2xl shadow-soft">
+            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-4 sm:p-5 bg-brand-shell ring-1 ring-brand-linen rounded-2xl shadow-lift">
               <div className="flex items-center gap-3 sm:gap-4">
                 <img
                   src={practice.images.anaPortrait}
@@ -89,7 +113,7 @@ export default function Hero() {
                   loading="lazy"
                 />
                 <div className="min-w-0">
-                  <span className="font-hand text-lg sm:text-xl text-brand-terracottaInk leading-tight block mb-1">
+                  <span className="font-hand font-semibold text-2xl sm:text-3xl text-brand-terracottaDeep leading-tight block mb-1">
                     &ldquo;{t('hero.doctorNote')}&rdquo;
                   </span>
                   <p className="text-[0.7rem] sm:text-xs font-sans text-brand-muted font-bold uppercase tracking-wider">

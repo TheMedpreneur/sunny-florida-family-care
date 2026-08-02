@@ -251,17 +251,31 @@ Ana sent a new photo on 8/2: her own portrait on the downtown waterfront, in her
 It is the right call — the photo that page used was the *same* shot as the homepage hero, so she
 appeared twice in the same frame, and all three images on the site were crops of one photograph.
 
-**The file itself has not reached the repo.** It needs to be saved as
-`public/images/ana-about.jpg`, and then:
+**The file itself has not reached the repo.** Save it as `public/images/ana-about.jpg` — via a
+local clone, or straight through GitHub's web uploader at
+`github.com/TheMedpreneur/sunny-florida-family-care/upload/main/public/images`.
+
+**That is the whole change.** No code edit, nothing to uncomment. `CareTeam.jsx` already asks for
+`ana-about` on every load and falls back to the hero photo only when the request does not return a
+decodable image. The moment the file exists the page switches to it, swaps to the landscape 4:3
+frame that keeps the skyline, and updates its alt text.
+
+The earlier version of this gated the swap on a commented-out config value, so dropping the photo
+in was *not* enough on its own — someone also had to remember to uncomment two lines. Nobody did,
+and the page quietly kept showing the homepage photo. Hence the change.
+
+> Worth knowing for anything similar: a missing file here does **not** 404. `public/_redirects`
+> sends unmatched paths to `index.html`, so a missing image returns **200 with an HTML body** on
+> Cloudflare Pages and in `vite preview` alike. The fallback keys off the decode failing, not off
+> the status code — a `res.status === 404` check would never have fired. Both states are verified:
+> file absent → hero photo in a 4:5 frame; file present → `ana-about` in a 4:3 frame.
+
+The `.webp` is optional. With only the `.jpg` present the browser skips the missing `<source>` and
+uses it. To generate the WebP:
 
 ```bash
-CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome \
-  node scripts/make-webp.mjs public/images/ana-about.jpg public/images/ana-about.webp 1200 0.85
+node scripts/make-webp.mjs public/images/ana-about.jpg public/images/ana-about.webp 1200 0.85
 ```
-
-then uncomment the two `anaAbout` keys in `src/data/practice.js`. `CareTeam.jsx` picks them up and
-switches to a landscape frame automatically; until then it falls back to the current photo, so
-nothing is ever broken mid-swap.
 
 `scripts/make-webp.mjs` exists because this container has no `sharp`, `cwebp`, ImageMagick or
 `vips` — it resizes and encodes through headless Chromium, which is already installed for the

@@ -49,8 +49,17 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Icon name="Mail" className="w-5 h-5 text-brand-marigoldLight shrink-0" aria-hidden="true" />
-                <a href={`mailto:${practice.email}`} className="hover:text-brand-marigoldLight transition-colors break-all min-h-tap flex items-center">
-                  {practice.email}
+                {/*
+                  The real address is long enough to need a wrap, and break-all
+                  chopped it mid-domain ("…familycare.c / om"). <wbr> gives the
+                  browser the one break point a reader expects — after the @ —
+                  so it wraps as "ana@" / "sunnyfloridafamilycare.com" instead.
+                */}
+                <a href={`mailto:${practice.email}`} className="hover:text-brand-marigoldLight transition-colors break-words min-h-tap flex items-center">
+                  <span>
+                    {practice.email.split('@')[0]}@<wbr />
+                    {practice.email.split('@')[1]}
+                  </span>
                 </a>
               </li>
               <li className="flex items-center gap-3">

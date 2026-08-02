@@ -48,16 +48,21 @@ export default function CareTeam() {
                 <span className="italic text-brand-terracottaInk">{t('team.titleItalic')}</span>
               </h1>
               {/*
-                Her own signature block. Everywhere else on the site stays with
-                the short "Ana Adamski, FNP-C" so pull-quote attributions do not
-                run long — this is the one place the full credential belongs.
+                The standing "Ana Adamski, FNP-C — Family Nurse Practitioner &
+                Founder" line came out when her new introduction went in: her
+                own first sentence already opens with the full credential, so
+                the two stacked into "Ana Adamski, MSN, APRN, FNP-C" twice over,
+                with "Family Nurse Practitioner" three times in two lines.
+                Her wording wins; the generated line goes.
+
+                Her second paragraph joins it here rather than starting the bio
+                band, because one short paragraph left this column nearly empty
+                against a full-height photo.
               */}
-              <p className="font-serif text-xl md:text-2xl text-brand-sageInk mb-6">
-                {practice.provider.fullTitleLong} — {t('team.role')}
-              </p>
-              <p className="font-sans text-lg text-brand-muted leading-relaxed">
-                {t('team.intro')}
-              </p>
+              <div className="space-y-4 font-sans text-lg text-brand-muted leading-relaxed">
+                <p>{t('team.intro')}</p>
+                {Array.isArray(bio) && bio.length > 0 && <p>{bio[0]}</p>}
+              </div>
             </Reveal>
 
             <Reveal from="right" delay={0.1} className="relative max-w-md mx-auto md:max-w-none w-full">
@@ -94,8 +99,36 @@ export default function CareTeam() {
       <section className="py-16 md:py-20 bg-brand-creamDark border-y border-brand-linen">
         <div className="max-w-[760px] mx-auto px-6">
           <Reveal>
+            {/*
+              bio[0] is rendered up in the intro column, so the band picks up
+              from the second paragraph.
+
+              Ana's introduction has three one-line paragraphs among six long
+              ones — the turn ("Today, Ana takes a different approach.") and the
+              two closing lines. Set at body size they disappeared into a wall
+              of grey text. Setting the short ones in the serif face at lead
+              size gives the piece the rhythm her writing already has, without
+              touching a word of it.
+
+              The 90-character test is on the rendered string rather than a
+              hardcoded index, so it lands on the same three paragraphs in
+              Spanish — where the same lines run 38, 80 and 86 characters
+              against 200+ for the long ones.
+            */}
             <div className="space-y-6 font-sans text-lg text-brand-espresso leading-relaxed text-pretty">
-              {Array.isArray(bio) && bio.map((para, i) => <p key={i}>{para}</p>)}
+              {Array.isArray(bio) &&
+                bio.slice(1).map((para, i) =>
+                  para.length <= 90 ? (
+                    <p
+                      key={i}
+                      className="font-serif text-2xl md:text-3xl text-brand-terracottaInk leading-snug"
+                    >
+                      {para}
+                    </p>
+                  ) : (
+                    <p key={i}>{para}</p>
+                  )
+                )}
             </div>
           </Reveal>
         </div>

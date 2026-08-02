@@ -22,17 +22,21 @@ function PayLink({ link, label }) {
   const { t } = useLanguage();
   if (isBadStripeLink(link)) return null;
 
+  // Renders its own <dd> because these rows are inside a <dl>: a definition
+  // list may only contain dt/dd groups, so a bare <a> would be invalid there.
   return (
-    <a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="mt-2 inline-flex items-center gap-1.5 min-h-tap px-4 rounded-full bg-brand-terracotta text-brand-shell font-sans text-sm font-semibold hover:bg-brand-terracottaDeep transition-colors duration-400 ease-soft-ease"
-      aria-label={`${t('single.payNow')} — ${label}`}
-    >
-      {t('single.payNow')}
-      <Icon name="ArrowRight" className="w-3.5 h-3.5" aria-hidden="true" />
-    </a>
+    <dd className="col-span-2 mt-2">
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 min-h-tap px-4 rounded-full bg-brand-terracotta text-brand-shell font-sans text-sm font-semibold hover:bg-brand-terracottaDeep transition-colors duration-400 ease-soft-ease"
+        aria-label={`${t('single.payNow')} — ${label}`}
+      >
+        {t('single.payNow')}
+        <Icon name="ArrowRight" className="w-3.5 h-3.5" aria-hidden="true" />
+      </a>
+    </dd>
   );
 }
 
@@ -45,33 +49,47 @@ function ServiceGroup({ group }) {
       <h3 className="font-serif text-2xl mb-6 text-brand-espresso">
         {t(`single.groups.${group.id}`)}
       </h3>
+      {/*
+        The name/price row and the description used to sit in nested <div>s
+        inside the <dl>, which put the dt and dd two levels deep — a definition
+        list may only contain dt/dd groups (optionally wrapped one div deep),
+        so assistive tech saw orphaned terms. A two-column grid gets the same
+        layout with dt and dd as direct children: the price sits beside the
+        name, the description spans both tracks underneath.
+
+        minmax(0,1fr) rather than 1fr: a 1fr track keeps min-width:auto, so the
+        longest word in a service name plus the price set a floor the card
+        could not go below, and the whole card pushed past the viewport on a
+        narrow phone once WCAG 1.4.12 letter-spacing was applied.
+      */}
       <dl className="divide-y divide-brand-linen">
         {group.items.map((item) => (
-          <div key={item.id} className="py-4 first:pt-0 last:pb-0">
-            <div className="flex items-baseline justify-between gap-4 mb-1">
-              <dt className="font-sans font-semibold text-brand-espresso leading-snug">
-                {t(`single.items.${item.id}.name`)}
-              </dt>
-              <dd className="font-sans font-bold text-brand-terracottaInk whitespace-nowrap tabular-nums shrink-0">
-                {item.price === null ? (
-                  <span className="text-sm font-semibold text-brand-sageInk">
-                    {t('single.onRequest')}
+          <div
+            key={item.id}
+            className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 py-4 first:pt-0 last:pb-0"
+          >
+            <dt className="font-sans font-semibold text-brand-espresso leading-snug">
+              {t(`single.items.${item.id}.name`)}
+            </dt>
+            <dd className="font-sans font-bold text-brand-terracottaInk whitespace-nowrap tabular-nums text-right">
+              {item.price === null ? (
+                <span className="text-sm font-semibold text-brand-sageInk">
+                  {t('single.onRequest')}
+                </span>
+              ) : item.from ? (
+                <>
+                  <span className="text-xs font-semibold text-brand-muted mr-1">
+                    {t('single.fromPrice')}
                   </span>
-                ) : item.from ? (
-                  <>
-                    <span className="text-xs font-semibold text-brand-muted mr-1">
-                      {t('single.fromPrice')}
-                    </span>
-                    ${item.price}
-                  </>
-                ) : (
-                  <>${item.price}</>
-                )}
-              </dd>
-            </div>
-            <p className="font-sans text-sm text-brand-muted leading-relaxed">
+                  ${item.price}
+                </>
+              ) : (
+                <>${item.price}</>
+              )}
+            </dd>
+            <dd className="col-span-2 mt-1 font-sans text-sm text-brand-muted leading-relaxed">
               {t(`single.items.${item.id}.desc`)}
-            </p>
+            </dd>
             <PayLink link={item.paymentLink} label={t(`single.items.${item.id}.name`)} />
           </div>
         ))}
@@ -89,15 +107,13 @@ function PriceTable({ titleKey, rows, prefix }) {
       <h3 className="font-serif text-2xl mb-6 text-brand-espresso">{t(titleKey)}</h3>
       <dl className="divide-y divide-brand-linen">
         {rows.map((row) => (
-          <div key={row.id} className="py-3">
-            <div className="flex items-baseline justify-between gap-4">
-              <dt className="font-sans text-brand-espresso leading-snug">
-                {t(`${prefix}.${row.id}`)}
-              </dt>
-              <dd className="font-sans font-bold text-brand-terracottaInk whitespace-nowrap tabular-nums shrink-0">
-                ${row.price}
-              </dd>
-            </div>
+          <div key={row.id} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 py-3">
+            <dt className="font-sans text-brand-espresso leading-snug">
+              {t(`${prefix}.${row.id}`)}
+            </dt>
+            <dd className="font-sans font-bold text-brand-terracottaInk whitespace-nowrap tabular-nums text-right">
+              ${row.price}
+            </dd>
             <PayLink link={row.paymentLink} label={t(`${prefix}.${row.id}`)} />
           </div>
         ))}
@@ -182,7 +198,9 @@ export default function SingleVisitPricing() {
               <ul className="space-y-3 mb-8" role="list">
                 {includedIds.map((id) => (
                   <li key={id} className="flex items-start gap-2.5">
-                    <span className="text-brand-marigold shrink-0 mt-0.5">
+                    {/* 1.4.11: a meaningful icon needs 3:1. marigold on sage
+                        is 2.28:1; tintYellow is 4.65:1. */}
+                    <span className="text-brand-tintYellow shrink-0 mt-0.5">
                       <Icon name="CheckCircle" className="w-5 h-5" />
                     </span>
                     <span className="font-sans text-brand-shell leading-snug">

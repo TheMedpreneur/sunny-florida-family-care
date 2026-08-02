@@ -10,8 +10,22 @@ export default function Footer() {
   return (
     <footer className="bg-brand-espresso text-brand-cream pt-16 md:pt-20 pb-10" role="contentinfo">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 mb-14">
-          <div className="md:col-span-1">
+        {/*
+          Four equal columns left the contact column ~220px of usable width
+          after the icon, and "ana@sunnyfloridafamilycare.com" needs ~245px —
+          so the real address wrapped and sat crammed against its neighbour.
+          The demo placeholder was short enough to hide it.
+
+          A 12-column track lets the columns take what they actually need:
+          the contact details get four, the legal links — none longer than
+          "Services & Pricing" — give up the two they were wasting.
+
+          Twelve tracks only from lg up. At the 768px tablet width they divide
+          too finely and the address wrapped again with 25px of clearance, so
+          that range keeps the roomier two-column layout.
+        */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-x-8 lg:gap-y-12 mb-14">
+          <div className="lg:col-span-3">
             {/*
               Ana's logo carries deep-navy type that would vanish on the dark
               band, so it sits on a light chip here rather than being recolored.
@@ -34,7 +48,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div>
+          <div className="lg:col-span-4">
             <h2 className="font-serif text-xl mb-5 text-brand-marigoldLight">{t('footer.visit')}</h2>
             <ul className="space-y-4 font-sans text-brand-cream/85" role="list">
               <li className="flex items-start gap-3">
@@ -85,7 +99,7 @@ export default function Footer() {
             was dropped from the structured data in SEO.jsx at the same time,
             so Google cannot keep showing hours the site no longer claims.
           */}
-          <div>
+          <div className="lg:col-span-3">
             <h2 className="font-serif text-xl mb-5 text-brand-marigoldLight">
               {t('footer.appointments')}
             </h2>
@@ -111,7 +125,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div>
+          <div className="lg:col-span-2">
             <h2 className="font-serif text-xl mb-5 text-brand-marigoldLight">{t('footer.legal')}</h2>
             <nav aria-label={t('footer.legal')}>
               <ul className="space-y-1 font-sans text-brand-cream/85" role="list">

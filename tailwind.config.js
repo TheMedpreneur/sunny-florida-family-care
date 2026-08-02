@@ -40,6 +40,26 @@
  *      For body-size accent copy use terracottaInk (#9C3D25).
  *   3. Full-bleed terracotta sections use terracottaDeep so cream body
  *      copy on top clears AAA.
+ *
+ *   4. "Dark surface" in rule 1 means espresso or bark, not the MID-TONES.
+ *      An axe-core sweep on 8/2 found gold failing on both of them:
+ *        marigold on sage ............ 2.28:1   (membership fee line)
+ *        marigoldLight on terracottaDeep  4.35:1 (story pull-quote byline)
+ *      On sage and terracottaDeep the only gold that clears AA is
+ *      tintYellow — 4.65:1 and 7.04:1. Reach for that, not marigold.
+ *
+ *   5. Do NOT thin light text with an opacity suffix on a MID-TONE fill.
+ *      It composites toward the fill and the ratio collapses:
+ *        shell/80 on sage ............ 4.16:1  ✗
+ *        shell/85 on sage ............ 4.44:1  ✗   (so close it reads as fine)
+ *        shell    on sage ............ 5.44:1  ✓
+ *      The same trick is safe on espresso, which is dark enough that even
+ *      cream/60 still clears 5.65:1. Carry hierarchy with size or weight
+ *      on the mid-tones instead of alpha.
+ *
+ * Run `node scripts/a11y-qa.mjs` (with `npm run preview` up) before shipping
+ * a colour change — it checks every pairing that actually renders, in both
+ * languages, rather than the ones listed here.
  */
 
 export default {

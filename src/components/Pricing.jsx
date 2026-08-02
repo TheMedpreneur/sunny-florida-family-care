@@ -97,23 +97,28 @@ export default function Pricing() {
                   {t(`pricing.plans.${plan.id}`)}
                 </h3>
                 {/* Age band mirrors the Stripe product name so checkout matches the site */}
-                <p className={`font-sans text-sm mb-4 ${plan.featured ? 'text-brand-shell/80' : 'text-brand-muted'}`}>
+                <p className={`font-sans text-sm mb-4 ${plan.featured ? 'text-brand-shell' : 'text-brand-muted'}`}>
                   {t('pricing.ages')} {plan.ages}
                 </p>
 
                 <p className="mb-1 flex items-baseline gap-1">
                   <span className="text-3xl font-serif">$</span>
                   <span className="text-5xl font-serif font-medium">{plan.amount}</span>
-                  <span className={`font-sans text-sm ${plan.featured ? 'text-brand-shell/80' : 'text-brand-muted'}`}>
+                  <span className={`font-sans text-sm ${plan.featured ? 'text-brand-shell' : 'text-brand-muted'}`}>
                     {t('pricing.perMonth')}
                   </span>
                 </p>
 
-                <p className={`font-sans text-sm font-semibold mb-7 ${plan.featured ? 'text-brand-marigold' : 'text-brand-terracottaInk'}`}>
+                {/*
+                  marigold on the sage card is 2.28:1 — the palette's own rule
+                  against gold text, applied to a mid-dark surface rather than
+                  a light one. tintYellow keeps the warm accent at 4.65:1.
+                */}
+                <p className={`font-sans text-sm font-semibold mb-7 ${plan.featured ? 'text-brand-tintYellow' : 'text-brand-terracottaInk'}`}>
                   {t('pricing.enrollmentFee')}
                 </p>
 
-                <p className={`font-sans text-sm mb-6 ${plan.featured ? 'text-brand-shell/85' : 'text-brand-muted'}`}>
+                <p className={`font-sans text-sm mb-6 ${plan.featured ? 'text-brand-shell' : 'text-brand-muted'}`}>
                   {t('pricing.dueToday')}{' '}
                   <strong className="whitespace-nowrap">
                     ${plan.amount + practice.enrollmentFee}
@@ -125,10 +130,15 @@ export default function Pricing() {
                   so it is the last thing read before the Enroll button. mt-auto
                   moved here from the Button so this stays glued to it.
                 */}
+                {/*
+                  A translucent light chip on the sage card composited to
+                  ~#68805F, dropping cream text to 3.95:1. The solid deeper
+                  sage reads as the same inset and clears AAA at 7.8:1.
+                */}
                 <span
                   className={`font-sans text-sm font-semibold leading-snug mb-4 mt-auto px-3 py-2 rounded-2xl ${
                     plan.featured
-                      ? 'bg-brand-shell/15 text-brand-shell'
+                      ? 'bg-brand-sageInk text-brand-shell'
                       : 'bg-brand-sage/10 text-brand-sageInk'
                   }`}
                 >

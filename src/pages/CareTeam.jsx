@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SEO from '../components/SEO';
 import Button from '../components/Button';
 import Reveal from '../components/Reveal';
@@ -14,17 +14,22 @@ export default function CareTeam() {
   const values = t('team.values');
 
   /*
-   * Ana's solo portrait downtown, supplied 8/2 to replace the with-a-patient
-   * shot that was doing double duty here and on the homepage hero.
+   * Ana's solo portrait downtown, replacing the with-a-patient shot that was
+   * doing double duty here and on the homepage hero.
    *
-   * The fallback is deliberate: practice.images.anaAbout stays undefined until
-   * public/images/ana-about.jpg is actually in the repo, so this page renders
-   * the old photo rather than a broken image if the two land out of order.
-   * Delete the fallback once the file ships.
+   * This page asks for ana-about first and falls back to the hero photo only
+   * if the file genuinely is not there. That is deliberate: the previous
+   * version keyed off a commented-out config value, which meant dropping the
+   * photo into the repo was not enough on its own — someone also had to
+   * remember to uncomment two lines, and nobody did. Now the file landing in
+   * public/images/ IS the whole change; no code edit, no redeploy of anything
+   * but the asset.
+   *
+   * Cost of that: one 404 on this page until the file exists. Worth it over a
+   * silent no-op. Once the photo is in, delete this state and render it plainly.
    */
-  const aboutImg = practice.images.anaAbout ?? practice.images.anaHero;
-  const aboutImgWebp = practice.images.anaAboutWebp ?? practice.images.anaHeroWebp;
-  const hasOwnPortrait = Boolean(practice.images.anaAbout);
+  const [photoMissing, setPhotoMissing] = useState(false);
+  const showAbout = !photoMissing;
 
   return (
     <div className="bg-brand-cream">
@@ -74,18 +79,27 @@ export default function CareTeam() {
                 dead-centre without pushing her out of frame.
               */}
               <div
-                className={`${hasOwnPortrait ? 'aspect-[4/3]' : 'aspect-[4/5]'} arch-crop overflow-hidden shadow-lift border-8 border-brand-shell`}
+                className={`${showAbout ? 'aspect-[4/3]' : 'aspect-[4/5]'} arch-crop overflow-hidden shadow-lift border-8 border-brand-shell`}
               >
-                <picture>
-                  <source srcSet={aboutImgWebp} type="image/webp" />
+                {/*
+                  key forces a fresh <picture> when the source set changes —
+                  without it the browser keeps its already-resolved candidate
+                  and the fallback never paints.
+                */}
+                <picture key={showAbout ? 'about' : 'fallback'}>
+                  <source
+                    srcSet={showAbout ? practice.images.anaAboutWebp : practice.images.anaHeroWebp}
+                    type="image/webp"
+                  />
                   <img
-                    src={aboutImg}
+                    src={showAbout ? practice.images.anaAbout : practice.images.anaHero}
+                    onError={() => setPhotoMissing(true)}
                     alt={
-                      hasOwnPortrait
+                      showAbout
                         ? `${practice.provider.fullTitleLong}, Family Nurse Practitioner, on the St. Johns River waterfront in downtown Jacksonville`
                         : `${practice.provider.fullTitle}, Family Nurse Practitioner, with a patient`
                     }
-                    className={`w-full h-full object-cover ${hasOwnPortrait ? 'object-[62%_45%]' : 'object-top'}`}
+                    className={`w-full h-full object-cover ${showAbout ? 'object-[62%_45%]' : 'object-top'}`}
                     fetchPriority="high"
                   />
                 </picture>

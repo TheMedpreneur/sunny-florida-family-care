@@ -142,14 +142,20 @@ export const practice = {
     anaCare: '/images/ana-care.jpg',
     anaCareWebp: '/images/ana-care.webp',
 
-    // Meet Ana — her solo portrait downtown, supplied 8/2 to replace the
-    // with-a-patient shot that was doing double duty on the homepage.
+    // Meet Ana — her solo portrait downtown, replacing the with-a-patient
+    // shot that was doing double duty on the homepage.
     //
-    // ⚠️ Both keys stay undefined until public/images/ana-about.jpg lands in
-    // the repo. CareTeam.jsx falls back to the hero photo while they are
-    // missing, so the site is never broken mid-swap. Uncomment to enable.
-    // anaAbout: '/images/ana-about.jpg',
-    // anaAboutWebp: '/images/ana-about.webp',
+    // These paths are LIVE even before the files exist. CareTeam.jsx requests
+    // them, and falls back to the hero photo only if the request 404s — so
+    // dropping ana-about.jpg into public/images/ is the entire change. No code
+    // edit, nothing to remember.
+    //
+    // The .webp is optional: if only the .jpg is there, the browser skips the
+    // missing <source> and uses it. Generate the .webp when convenient with
+    //   node scripts/make-webp.mjs public/images/ana-about.jpg \
+    //        public/images/ana-about.webp 1200 0.85
+    anaAbout: '/images/ana-about.jpg',
+    anaAboutWebp: '/images/ana-about.webp',
   },
 };
 

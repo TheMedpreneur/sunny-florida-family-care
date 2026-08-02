@@ -276,5 +276,20 @@ npm install
 npm run dev          # local development
 npm run build        # runs the translation check + lint, then builds
 npm run check:i18n   # English/Spanish parity
-node scripts/mobile-qa.mjs   # mobile + tablet + translation pass (needs `npm run preview` running)
+npm run qa           # both QA passes below, in order (needs `npm run preview` running)
+npm run qa:mobile    # 8 viewports x 2 languages x 7 routes
+npm run qa:a11y      # WCAG 2.2 AA: axe-core, reflow, text spacing, targets, keyboard
 ```
+
+Both QA scripts need a server: `npm run build && npm run preview` in one terminal,
+then `npm run qa` in another. They exit non-zero on failure, so they can gate a deploy.
+
+`node scripts/make-webp.mjs <src> <out.webp> <maxWidth> [quality]` resizes and encodes
+through headless Chromium — this container has no `sharp`, `cwebp`, ImageMagick or
+`vips`. It is what generated `logo-sm.webp`, and what to use for `ana-about.webp`
+when Ana's photo lands (see §10).
+
+**Run `npm run qa:a11y` after any colour change.** It reads the pairings that
+actually render, in both languages, rather than the ones written down in
+`tailwind.config.js` — which is how three failing gold-on-mid-tone pairings
+survived an earlier round with the palette rules sitting right above them.

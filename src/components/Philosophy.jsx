@@ -84,7 +84,12 @@ export default function Philosophy() {
               <p className="font-hand text-xl sm:text-2xl leading-tight mb-2">
                 &ldquo;{t('philosophy.quote')}&rdquo;
               </p>
-              <p className="font-sans text-[0.7rem] uppercase tracking-widest font-bold text-brand-marigoldLight">
+              {/*
+                marigoldLight on terracottaDeep is 4.35:1 — under AA, and at
+                11px this is small text so weight does not buy an exemption.
+                tintYellow on the same ground is 7.04:1.
+              */}
+              <p className="font-sans text-[0.7rem] uppercase tracking-widest font-bold text-brand-tintYellow">
                 — {practice.provider.fullTitle}
               </p>
             </div>

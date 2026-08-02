@@ -9,7 +9,10 @@
     "lint": "eslint .",
     "lint:error": "eslint . --quiet",
     "check:i18n": "node scripts/check-translations.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "qa:mobile": "node scripts/mobile-qa.mjs",
+    "qa:a11y": "node scripts/a11y-qa.mjs",
+    "qa": "npm run qa:mobile && npm run qa:a11y"
   },
   "dependencies": {
     "react": "^18.3.1",

@@ -118,7 +118,7 @@ export default function CareTeam() {
                         : `${practice.provider.fullTitle}, Family Nurse Practitioner, with a patient`
                     }
                     className={`w-full h-full object-cover ${showAbout ? 'object-[70%_32%]' : 'object-top'}`}
-                    fetchPriority="high"
+                    fetchpriority="high"
                   />
                 </picture>
               </div>

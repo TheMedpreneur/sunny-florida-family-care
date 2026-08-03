@@ -82,7 +82,7 @@ export default function Hero() {
                 className="w-full h-full object-cover object-top"
                 width="1000"
                 height="1250"
-                fetchPriority="high"
+                fetchpriority="high"
               />
             </picture>
 

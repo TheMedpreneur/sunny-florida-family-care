@@ -50,7 +50,7 @@ export default function Navbar() {
               className="h-14 sm:h-16 md:h-24 w-auto transition-transform duration-400 ease-soft-ease group-hover:scale-[1.03]"
               width="640"
               height="644"
-              fetchPriority="high"
+              fetchpriority="high"
             />
           </picture>
           <span className="sr-only">{practice.name} — {practice.tagline}</span>

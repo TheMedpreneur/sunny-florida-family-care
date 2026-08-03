@@ -34,13 +34,13 @@ const DEVICES = [
 ];
 
 const ROUTES = [
-  { path: '#/',              id: 'home' },
-  { path: '#/team',          id: 'team' },
-  { path: '#/services',      id: 'services' },
-  { path: '#/services/tele', id: 'service-tele' },
-  { path: '#/faq',           id: 'faq' },
-  { path: '#/privacy',       id: 'privacy' },
-  { path: '#/terms',         id: 'terms' },
+  { path: '/',              id: 'home' },
+  { path: '/team',          id: 'team' },
+  { path: '/services',      id: 'services' },
+  { path: '/services/tele', id: 'service-tele' },
+  { path: '/faq',           id: 'faq' },
+  { path: '/privacy',       id: 'privacy' },
+  { path: '/terms',         id: 'terms' },
 ];
 
 const LANGS = ['en', 'es'];
@@ -94,7 +94,7 @@ for (const dev of DEVICES) {
 
     for (const route of ROUTES) {
       const label = `${dev.name}/${lang}/${route.id}`;
-      await page.goto(`${BASE}/${route.path}`, { waitUntil: 'networkidle' });
+      await page.goto(`${BASE}${route.path}`, { waitUntil: 'networkidle' });
       // Scroll the whole page so every Reveal fires, then return to the top.
       // These MUST be instant: the site sets `scroll-behavior: smooth`, so a
       // default scrollTo animates, and a screenshot taken before it lands
@@ -216,7 +216,7 @@ for (const dev of DEVICES) {
 
     // mobile menu open-state check (phones only)
     if (dev.kind === 'phone') {
-      await page.goto(`${BASE}/#/`, { waitUntil: 'networkidle' });
+      await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
       // Both the desktop and compact toggles share an aria-label, and the
       // desktop one is display:none at this width — count only visible ones.
       const toggleVisible = await page

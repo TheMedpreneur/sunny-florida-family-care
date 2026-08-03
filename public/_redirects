@@ -1,9 +1,10 @@
 # Cloudflare Pages redirects
 # --------------------------
-# The app currently uses hash routing (/#/services), so every route is already
-# served by index.html and this rule is a no-op today.
+# The app uses clean URLs (BrowserRouter), so the edge knows nothing about
+# /services or /team — only index.html exists on disk. This rule hands every
+# path to the app and lets React Router decide.
 #
-# It is here so that switching to clean URLs (BrowserRouter) is a one-line change
-# in App.jsx rather than a broken deploy: without this, a hard refresh on
-# /services would 404 at the edge.
+# It is load-bearing, not a convenience: delete it and a hard refresh or an
+# inbound link to anything but "/" returns a real 404 — which is precisely
+# what a search engine would crawl.
 /*  /index.html  200

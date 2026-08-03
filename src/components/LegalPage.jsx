@@ -20,7 +20,7 @@ export default function LegalPage({ title, titleAccent, accentClass, description
       <SEO
         title={`${title} ${titleAccent}`}
         description={description}
-        url={`${practice.siteUrl}/#/${title.toLowerCase().includes('privacy') ? 'privacy' : 'terms'}`}
+        url={`${practice.siteUrl}/${title.toLowerCase().includes('privacy') ? 'privacy' : 'terms'}`}
       />
       <div className="max-w-[800px] mx-auto px-6">
         <Reveal>

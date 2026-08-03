@@ -36,7 +36,7 @@ export default function CareTeam() {
       <SEO
         title={`${practice.provider.fullTitle} | ${practice.name}`}
         description={t('team.intro')}
-        url={`${practice.siteUrl}/#/team`}
+        url={`${practice.siteUrl}/team`}
         keywords="Ana Adamski FNP-C, nurse practitioner Jacksonville, bilingual nurse practitioner, Spanish speaking provider Jacksonville, enfermera practicante Jacksonville"
       />
 

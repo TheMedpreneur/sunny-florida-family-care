@@ -1,5 +1,13 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+// BrowserRouter, not HashRouter. Google discards the fragment when
+// canonicalising, so under hash routing every page collapsed onto the
+// homepage and only "/" could rank — fatal for a local practice that needs
+// to be found for "Jacksonville bilingual primary care".
+//
+// This works only because public/_redirects serves index.html for every path
+// (`/*  /index.html  200`); without that rule a hard refresh on /services
+// would 404 at the edge.
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import useFontLoader from './hooks/useFontLoader';

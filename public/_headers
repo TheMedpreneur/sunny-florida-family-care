@@ -31,8 +31,37 @@
   Cache-Control: public, max-age=86400, must-revalidate
 
 # Never cache the entry point, or a deploy will not go live for returning visitors.
+#
+# Under BrowserRouter every route below is also served index.html (see
+# _redirects), so each one needs this rule too. "/" and "/index.html" alone
+# would leave a returning visitor who bookmarked /services on a stale build
+# — the exact failure this rule exists to prevent, just moved to the pages
+# most likely to be linked.
+#
+# Listed path by path rather than as a wildcard: a broad rule here would also
+# match /assets/* and /images/*, and the precedence between overlapping rules
+# is not something to leave to chance when getting it wrong means either a
+# stale deploy or uncached fingerprinted assets. Add a line when adding a route.
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
 
 /
+  Cache-Control: public, max-age=0, must-revalidate
+
+/team
+  Cache-Control: public, max-age=0, must-revalidate
+
+/services
+  Cache-Control: public, max-age=0, must-revalidate
+
+/services/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/faq
+  Cache-Control: public, max-age=0, must-revalidate
+
+/terms
+  Cache-Control: public, max-age=0, must-revalidate
+
+/privacy
   Cache-Control: public, max-age=0, must-revalidate

@@ -57,7 +57,7 @@ for (const vp of [VIEWPORTS[1], VIEWPORTS[3]]) {
 
     for (const route of ROUTES) {
       const label = `${vp.name}/${lang}${route}`;
-      await page.goto(`${BASE}/#${route}`, { waitUntil: 'networkidle' });
+      await page.goto(`${BASE}${route}`, { waitUntil: 'networkidle' });
       await page.waitForTimeout(400);
       await settle(page);
       await page.addScriptTag({ content: axeSource });
@@ -92,7 +92,7 @@ for (const vp of VIEWPORTS) {
 
   for (const route of ROUTES) {
     const label = `${vp.name}${route}`;
-    await page.goto(`${BASE}/#${route}`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE}${route}`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(400);
     await settle(page);
 
@@ -203,7 +203,7 @@ for (const vp of VIEWPORTS) {
 {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await ctx.newPage();
-  await page.goto(`${BASE}/#/`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(800);
 
   await page.keyboard.press('Tab');

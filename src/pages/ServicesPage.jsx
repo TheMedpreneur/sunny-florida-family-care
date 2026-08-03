@@ -18,7 +18,7 @@ export default function ServicesPage() {
       <SEO
         title={`${t('nav.services')} | ${practice.name}`}
         description={t('services.subtitle')}
-        url={`${practice.siteUrl}/#/services`}
+        url={`${practice.siteUrl}/services`}
         keywords="direct primary care pricing Jacksonville, telemedicine cost, mobile visit, rapid strep test, bilingual nurse practitioner, precios consulta medica Jacksonville"
       />
 

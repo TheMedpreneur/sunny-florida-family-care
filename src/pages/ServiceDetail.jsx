@@ -45,7 +45,7 @@ export default function ServiceDetail() {
       <SEO
         title={`${title} ${titleItalic}`}
         description={subtitle}
-        url={`${practice.siteUrl}/#/services/${slug}`}
+        url={`${practice.siteUrl}/services/${slug}`}
         keywords={`${title}, Jacksonville, ${practice.provider.fullTitle}, bilingual primary care, private pay`}
         schema={{
           '@context': 'https://schema.org',

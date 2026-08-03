@@ -16,7 +16,7 @@ export default function FAQ() {
       <SEO
         title={`${t('faq.title')} ${t('faq.titleItalic')} | ${practice.name}`}
         description={list[0]?.a || t('footer.desc')}
-        url={`${practice.siteUrl}/#/faq`}
+        url={`${practice.siteUrl}/faq`}
         keywords="direct primary care FAQ, no insurance doctor Jacksonville, telemedicine questions, preguntas frecuentes atencion medica"
         schema={{
           '@context': 'https://schema.org',

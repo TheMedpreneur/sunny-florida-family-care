@@ -92,8 +92,21 @@ export default function CareTeam() {
                   and the fallback never paints.
                 */}
                 <picture key={showAbout ? 'about' : 'fallback'}>
+                  {/*
+                    sizes describes the frame's CSS width, so the browser can
+                    multiply by the screen's pixel ratio itself. The 700px file
+                    then covers a phone at 2x AND a standard desktop at 1x —
+                    both were downloading the 1200px file for a frame rendered
+                    at 326px and 528px respectively. Retina desktops and 3x
+                    phones still get the full-size one, which is the point.
+                  */}
                   <source
-                    srcSet={showAbout ? practice.images.anaAboutWebp : practice.images.anaHeroWebp}
+                    srcSet={
+                      showAbout
+                        ? `${practice.images.anaAboutSm} 700w, ${practice.images.anaAboutWebp} 1200w`
+                        : `${practice.images.anaHeroSm} 600w, ${practice.images.anaHeroWebp} 1000w`
+                    }
+                    sizes="(min-width: 1200px) 528px, (min-width: 768px) 42vw, (min-width: 496px) 432px, calc(100vw - 64px)"
                     type="image/webp"
                   />
                   <img

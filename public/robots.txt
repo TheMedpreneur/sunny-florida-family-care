@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.sunnyfamily.health/sitemap.xml
+Sitemap: https://sunnyfloridafamilycare.com/sitemap.xml

@@ -42,11 +42,22 @@ export const practice = {
 
   serviceArea: 'Jacksonville, FL — serving Duval & St. Johns',
 
-  // ⚠️ CONFIRM BEFORE LAUNCH: this domain drives every canonical URL, the
-  // sitemap and robots.txt, but Ana's email is @sunnyfloridafamilycare.com.
-  // If the site lives at that domain instead, change it here and in
-  // public/sitemap.xml + public/robots.txt.
-  siteUrl: 'https://www.sunnyfamily.health',
+  // This domain drives every canonical URL, og:url, the JSON-LD, the sitemap
+  // and robots.txt. It was sunnyfamily.health, which is not registered — so
+  // the live site was telling Google its real home was a domain that does not
+  // resolve, which suppresses indexing of the page that is actually up.
+  //
+  // sunnyfloridafamilycare.com is registered (GoDaddy, 14 May 2026) and
+  // matches Ana's email, so it is the real home.
+  //
+  // Apex, not www: www 301s to the apex, and a canonical that redirects is a
+  // wasted hop. Keep this in sync with public/sitemap.xml + public/robots.txt.
+  //
+  // ⚠️ NOT LIVE YET. The site is served from sunny-florida-family-care.pages.dev;
+  // this domain still points at a GoDaddy placeholder. Until its DNS is moved
+  // to the Cloudflare Pages project, these URLs describe the intended home
+  // rather than the current one.
+  siteUrl: 'https://sunnyfloridafamilycare.com',
 
   // NOTE: fixed clinic hours were removed 8/2 at Ana's request — she is still
   // working another job, so posted hours would be wrong more often than right.

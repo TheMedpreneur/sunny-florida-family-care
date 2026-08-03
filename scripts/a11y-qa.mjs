@@ -7,13 +7,25 @@
  * visibility and order (2.4.7 / 2.4.3), and target size (2.5.8).
  *
  *   node scripts/a11y-qa.mjs            # needs `npm run preview` running
- *   AXE=/path/to/axe.min.js node scripts/a11y-qa.mjs
+ *   AXE=/path/to/axe.min.js node scripts/a11y-qa.mjs   # pin a different build
+ *
+ * CHROMIUM_PATH still has to be set on anything but the Linux CI image the
+ * default was written for — see the launch call below.
  */
 import { chromium } from 'playwright';
 import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 const BASE = process.env.QA_BASE || 'http://localhost:4173';
-const AXE = process.env.AXE || '/tmp/package/axe.min.js';
+
+// axe-core is a devDependency, so resolve it from node_modules rather than a
+// path on whichever machine happened to run this. The previous default pointed
+// at /tmp/package/axe.min.js — an unpacked tarball on a CI box — so the script
+// only ran where someone had already staged the file by hand. AXE still
+// overrides, for pinning a different build.
+const AXE = process.env.AXE || require.resolve('axe-core/axe.min.js');
 const axeSource = readFileSync(AXE, 'utf8');
 
 const ROUTES = ['/', '/team', '/services', '/services/chronic', '/faq', '/terms', '/privacy'];

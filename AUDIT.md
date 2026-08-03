@@ -11,7 +11,7 @@
 | 2 | Say the membership is 3 visits/month, and show what's included before enrolling | ✅ "Every membership includes" panel **above** the tiers, plus the visit count on each card |
 | 3 | Price after-hours for members | ✅ $50 add-on, with her availability + 911 wording, next to the price |
 | 4 | Link Stripe/OptiMantra; add single-service prices | ✅ Answered in §9 below; per-service Pay buttons wired and dormant |
-| 5 | Different photo on Meet Ana | ⏳ **Needs the file** — see §10 |
+| 5 | Different photo on Meet Ana | ✅ Her riverfront portrait, in and framed |
 | 6 | New Meet Ana introduction | ✅ Her text, word for word |
 | 7 | "See single-visit pricing" is not working | ✅ **Fixed** — it was two separate bugs, see below |
 | 8 | Remove the hours, keep same-day, add the call/text line | ✅ Removed from the footer **and** from the structured data |
@@ -245,37 +245,32 @@ membership links. Buy-now-pay-later on a healthcare membership is an unusual fit
 
 ---
 
-## 10. The Meet Ana photo — still needed
+## 10. The Meet Ana photo
 
 Ana sent a new photo on 8/2: her own portrait on the downtown waterfront, in her branded coat.
 It is the right call — the photo that page used was the *same* shot as the homepage hero, so she
 appeared twice in the same frame, and all three images on the site were crops of one photograph.
 
-**The file itself has not reached the repo.** Save it as `public/images/ana-about.jpg` — via a
-local clone, or straight through GitHub's web uploader at
-`github.com/TheMedpreneur/sunny-florida-family-care/upload/main/public/images`.
+**Done.** `public/images/ana-about.jpg` (1536×1024) and `ana-about.webp` (1200×800, 65 KB) are
+in the repo, and the page renders them.
 
-**That is the whole change.** No code edit, nothing to uncomment. `CareTeam.jsx` already asks for
-`ana-about` on every load and falls back to the hero photo only when the request does not return a
-decodable image. The moment the file exists the page switches to it, swaps to the landscape 4:3
-frame that keeps the skyline, and updates its alt text.
+Getting the file there was the whole difficulty: it existed only as a chat attachment, which is
+rendered into the conversation as pixels, not written to the session's disk — and the session runs
+on a throwaway cloud VM with no path to anyone's local Downloads folder. It finally arrived via
+Google Drive, pulled down through the Drive connector.
 
-The earlier version of this gated the swap on a commented-out config value, so dropping the photo
-in was *not* enough on its own — someone also had to remember to uncomment two lines. Nobody did,
-and the page quietly kept showing the homepage photo. Hence the change.
+**Framing was chosen against the real photo, not guessed.** Ana stands right of centre in it, so
+the page's original tall 4:5 arch cut her in half, and a straight 4:3 left her shoulder catching
+the arch curve with dead pavement filling the left third. Four crops were rendered and compared;
+a square at `object-[70%_32%]` won — it centres her, clears her face of the arch, and keeps her
+name badge and the practice logo on the coat legible, which is worth more on a provider page than
+another inch of skyline.
 
-> Worth knowing for anything similar: a missing file here does **not** 404. `public/_redirects`
-> sends unmatched paths to `index.html`, so a missing image returns **200 with an HTML body** on
-> Cloudflare Pages and in `vite preview` alike. The fallback keys off the decode failing, not off
-> the status code — a `res.status === 404` check would never have fired. Both states are verified:
-> file absent → hero photo in a 4:5 frame; file present → `ana-about` in a 4:3 frame.
-
-The `.webp` is optional. With only the `.jpg` present the browser skips the missing `<source>` and
-uses it. To generate the WebP:
-
-```bash
-node scripts/make-webp.mjs public/images/ana-about.jpg public/images/ana-about.webp 1200 0.85
-```
+The page still falls back to the hero photo if the file ever goes missing, so a bad deploy
+degrades instead of showing a broken image. Worth keeping: a missing file here does **not** 404 —
+`public/_redirects` sends unmatched paths to `index.html`, so it returns **200 with an HTML body**
+on Cloudflare Pages and in `vite preview` alike. The fallback keys off the image failing to
+decode, not off the status code.
 
 `scripts/make-webp.mjs` exists because this container has no `sharp`, `cwebp`, ImageMagick or
 `vips` — it resizes and encodes through headless Chromium, which is already installed for the

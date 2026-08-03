@@ -8,7 +8,18 @@
     <meta name="apple-mobile-web-app-title" content="Sunny Florida" />
 
     <title>Sunny Florida Family Care | Bilingual Primary Care in Jacksonville, FL</title>
+    <!--
+      data-rh hands this tag to react-helmet-async. Without it Helmet cannot
+      see the tag, so it appended its per-page description alongside this one
+      and every route shipped two — this generic one first, which is the one a
+      crawler reads. The per-page descriptions in SEO.jsx were correct all
+      along; they were just sitting behind this.
+
+      The tag stays rather than being deleted so a crawler that does not run JS
+      still gets a description. Helmet replaces it as soon as React mounts.
+    -->
     <meta
+      data-rh="true"
       name="description"
       content="Private-pay primary care for families across Jacksonville. Unhurried visits with Ana Adamski, FNP-C — bilingual in English and Spanish. Telehealth, mobile visits, and transparent pricing."
     />

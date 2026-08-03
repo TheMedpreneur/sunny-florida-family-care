@@ -73,13 +73,18 @@ export default function CareTeam() {
             <Reveal from="right" delay={0.1} className="relative max-w-md mx-auto md:max-w-none w-full">
               <div className="absolute -inset-3 bg-brand-sage/20 arch-crop -rotate-2 -z-10" aria-hidden="true" />
               {/*
-                The new photo is landscape, so the tall 4:5 arch this page used
-                would have cropped the skyline straight out of it. 4:3 keeps the
-                river and the bridge; the object-position bias keeps Ana off
-                dead-centre without pushing her out of frame.
+                Framing chosen against the real photo, not guessed. Ana stands
+                right of centre in it, so the page's original tall 4:5 arch cut
+                her in half and a straight 4:3 left her shoulder catching the
+                arch curve with dead pavement filling the left third.
+
+                A square at 70%/32% centres her, clears her face of the curve,
+                and keeps her name badge and the practice logo on the coat
+                legible — which is worth more on a provider page than another
+                inch of skyline. The river and downtown still read behind her.
               */}
               <div
-                className={`${showAbout ? 'aspect-[4/3]' : 'aspect-[4/5]'} arch-crop overflow-hidden shadow-lift border-8 border-brand-shell`}
+                className={`${showAbout ? 'aspect-square' : 'aspect-[4/5]'} arch-crop overflow-hidden shadow-lift border-8 border-brand-shell`}
               >
                 {/*
                   key forces a fresh <picture> when the source set changes —
@@ -99,7 +104,7 @@ export default function CareTeam() {
                         ? `${practice.provider.fullTitleLong}, Family Nurse Practitioner, on the St. Johns River waterfront in downtown Jacksonville`
                         : `${practice.provider.fullTitle}, Family Nurse Practitioner, with a patient`
                     }
-                    className={`w-full h-full object-cover ${showAbout ? 'object-[62%_45%]' : 'object-top'}`}
+                    className={`w-full h-full object-cover ${showAbout ? 'object-[70%_32%]' : 'object-top'}`}
                     fetchPriority="high"
                   />
                 </picture>

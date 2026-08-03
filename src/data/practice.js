@@ -156,6 +156,9 @@ export const practice = {
     //        public/images/ana-about.webp 1200 0.85
     anaAbout: '/images/ana-about.jpg',
     anaAboutWebp: '/images/ana-about.webp',
+    // 700px covers a phone at 2x and a standard desktop at 1x — both were
+    // pulling the 1200px file for a frame rendered at 326px and 528px.
+    anaAboutSm: '/images/ana-about-sm.webp',
   },
 };
 

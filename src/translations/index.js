@@ -738,7 +738,7 @@ export const translations = {
         "title": "Telemedicina el mismo día fuera de horario",
         "window": "Una vez cerrado el día a las",
         "addOn": "Adicional de",
-        "notice": "Las citas fuera de horario se ofrecen según la disponibilidad de la proveedora y son para asuntos médicos urgentes que no sean emergencias. Se aplica un cargo por conveniencia fuera de horario, pagadero al momento de la consulta.",
+        "notice": "Se aplica un cargo por conveniencia para las consultas fuera del horario regular, el cual debe pagarse al momento del servicio.",
         "emergency": "Las emergencias que ponen la vida en riesgo siempre deben dirigirse al 911 o a la sala de emergencias más cercana."
       },
       "aLaCarte": {
@@ -1152,7 +1152,7 @@ export const translations = {
       "role": "Enfermera Practicante Familiar y Fundadora",
       "intro": "Ana Adamski, MSN, APRN, FNP-C es Enfermera Practicante Familiar certificada, dedicada a brindar una atención cuidadosa y personalizada a personas y familias en todo Jacksonville.",
       "bio": [
-        "Creó Sunny Florida Family Care con una convicción sencilla: usted nunca debería sentirse apurado, pasado por alto, ni como un nombre más en la agenda.",
+        "Creó Sunny Florida Family Care porque cree que la medicina debe ser diferente: con tiempo para escuchar, atención personalizada y un trato humano, para que usted nunca se sienta apresurado, pasado por alto ni como un nombre más en la agenda.",
         "Después de años en el sistema de salud, Ana vio a demasiados pacientes salir de sus consultas sintiéndose no escuchados—esperando semanas por atención, pasando apenas unos minutos apresurados con su proveedor, o batallando para comunicar lo que necesitaban. Sabía que tenía que haber una mejor manera.",
         "Hoy, Ana hace las cosas de otra forma.",
         "Se toma el tiempo de escuchar. De entender sus preocupaciones. De ver el panorama completo—no solo un síntoma o un diagnóstico aislado. Ya sea que atienda a un niño, ayude a un adulto a manejar una condición crónica, o acompañe a un ser querido mayor, su meta es la misma: que cada paciente se sienta visto, respetado y genuinamente cuidado.",

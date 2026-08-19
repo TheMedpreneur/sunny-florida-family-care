@@ -28,8 +28,11 @@ export const practice = {
   },
 
   // ---- Booking -------------------------------------------------------
-  // Ana's live Calendly (emailed 7/17). Every "Book Online" CTA points here.
-  calendly: 'https://calendly.com/ana-sunnyfloridafamilycare/30min',
+  // Ana's general one-off booking event (updated 8/19 — her old /30min link
+  // broke once she split Calendly into separate event types on 8/12-13).
+  // Every "Book Online" CTA points here. Memberships are handled via Stripe
+  // sign-up, not Calendly, per Ana's 8/18 email.
+  calendly: 'https://calendly.com/ana-sunnyfloridafamilycare/new-meeting',
 
   // ---- Contact -------------------------------------------------------
   // Ana's real practice line and inbox (supplied 8/2), replacing the demo

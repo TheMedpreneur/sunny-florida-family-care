@@ -244,6 +244,30 @@ export default function SingleVisitPricing() {
             </div>
           </div>
         </Reveal>
+
+        {/*
+          Ana does not prescribe controlled substances at all. A patient found
+          the old FAQ wording ("require an in-person visit") misleading, so say
+          it plainly here, next to the prices, rather than only in the FAQ.
+        */}
+        <Reveal className="mt-6">
+          <div
+            className="flex items-start gap-4 bg-brand-shell border-2 border-brand-sageInk/40 rounded-2xl p-5 sm:p-6"
+            role="note"
+          >
+            <span className="text-brand-sageInk shrink-0 mt-0.5">
+              <Icon name="AlertTriangle" className="w-6 h-6" />
+            </span>
+            <div>
+              <p className="font-sans font-bold text-brand-espresso mb-1">
+                {t('single.controlledNoticeTitle')}
+              </p>
+              <p className="font-sans text-sm text-brand-espresso leading-relaxed">
+                {t('single.controlledNotice')}
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

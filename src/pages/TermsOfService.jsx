@@ -34,7 +34,7 @@ const SECTIONS = [
     heading: '5. Scope of practice',
     body: [
       `Care is provided by ${practice.provider.fullTitle}, a board-certified Family Nurse Practitioner licensed in the State of Florida, practicing within the scope of that license.`,
-      'Controlled substances are not prescribed via telehealth. Prescription decisions are always at the clinical discretion of your provider.',
+      'This practice does not prescribe or refill controlled substances. Prescription decisions are always at the clinical discretion of your provider.',
     ],
   },
   {

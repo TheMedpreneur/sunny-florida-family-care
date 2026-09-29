@@ -238,7 +238,9 @@ export const translations = {
         "referrals": "Referrals or imaging and lab orders if needed"
       },
       "ageNoticeTitle": "Telemedicine is for ages 3 and older",
-      "ageNotice": "Children under age 3, or anyone with symptoms such as difficulty breathing, dehydration, or significant lethargy, need an in-person evaluation or emergency care rather than a telemedicine visit. If you are unsure, call and we will help you decide."
+      "ageNotice": "Children under age 3, or anyone with symptoms such as difficulty breathing, dehydration, or significant lethargy, need an in-person evaluation or emergency care rather than a telemedicine visit. If you are unsure, call and we will help you decide.",
+      "controlledNoticeTitle": "We do not prescribe controlled substances",
+      "controlledNotice": "This practice does not prescribe or refill controlled substances, such as opioids, benzodiazepines, stimulants, or sleep medications classified as controlled, whether the visit is by telehealth or in person. Refills and prescriptions are limited to non-controlled medications."
     },
     "services": {
       "title": "Our",
@@ -365,7 +367,7 @@ export const translations = {
           },
           {
             "q": "Can prescriptions be sent over telehealth?",
-            "a": "Yes, for most conditions. Prescriptions go straight to your preferred pharmacy. Controlled substances require an in-person visit."
+            "a": "Yes, for most conditions. Prescriptions go straight to your preferred pharmacy. We do not prescribe or refill controlled substances, in person or by telehealth."
           }
         ]
       },
@@ -845,7 +847,9 @@ export const translations = {
         "referrals": "Referidos u órdenes de laboratorio e imágenes si son necesarios"
       },
       "ageNoticeTitle": "La telemedicina es para mayores de 3 años",
-      "ageNotice": "Los niños menores de 3 años, o cualquier persona con síntomas como dificultad para respirar, deshidratación o mucha somnolencia, necesitan una evaluación en persona o atención de emergencia en lugar de una consulta por telemedicina. Si no está seguro, llame y le ayudamos a decidir."
+      "ageNotice": "Los niños menores de 3 años, o cualquier persona con síntomas como dificultad para respirar, deshidratación o mucha somnolencia, necesitan una evaluación en persona o atención de emergencia en lugar de una consulta por telemedicina. Si no está seguro, llame y le ayudamos a decidir.",
+      "controlledNoticeTitle": "No recetamos sustancias controladas",
+      "controlledNotice": "Esta práctica no receta ni resurte sustancias controladas, como opioides, benzodiacepinas, estimulantes o medicamentos para dormir clasificados como controlados, ya sea por telemedicina o en persona. Las recetas y los resurtidos se limitan a medicamentos no controlados."
     },
     "services": {
       "title": "Nuestros",
@@ -972,7 +976,7 @@ export const translations = {
           },
           {
             "q": "¿Pueden enviar recetas por telemedicina?",
-            "a": "Sí, para la mayoría de las condiciones. Las recetas van directamente a su farmacia preferida. Los medicamentos controlados requieren una consulta en persona."
+            "a": "Sí, para la mayoría de las condiciones. Las recetas van directamente a su farmacia preferida. No recetamos ni resurtimos sustancias controladas, ni en persona ni por telemedicina."
           }
         ]
       },

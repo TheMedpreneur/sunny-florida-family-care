@@ -8,7 +8,7 @@ import React, { Suspense, lazy, useEffect } from 'react';
 // (`/*  /index.html  200`); without that rule a hard refresh on /services
 // would 404 at the edge.
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import useFontLoader from './hooks/useFontLoader';
 import Navbar from './components/Navbar';
